@@ -99,5 +99,127 @@ Obsidian
 
 
 
+# Mise en place et installation
+
+
+Arch installé en suivant le wiki (plus simple finalement) et avec l'utilitaire "archinstall". Les manip post-install sont aussi faites.
+
+
+## Customisation
+
+### Grub
+
+Mise en place d'un nouveau theme pour le grub (juste pour que ce soit plus joli). Il y a juste à télécharger n'importe quel thème et à le mettre dans : `/usr/share/grub/themes/`. 
+Puis modifier `/etc/default/grub` : 
+```bash
+GRUB_THEME="/usr/share/grub/themes/nom-du-theme/theme.txt"
+```
+
+
+> [!NOTE] 
+> À terme dans le script qui permettra de changer facilement de theme, il faut changer la config grub. 
+
+
+> [!IMPORTANT]
+> Il ne faut pas oublier d'actualiser la configuration de grub en faisant : 
+> `sudo grub-mkconfig -o /boot/grub/grub.cfg ` 
+
+
+### Sddm
+
+Sddm (pour Simple Desktop Display Manager) est un display manager. C'est ce qui permet de se login avant d'arriver dans sa session. C'est un "Graphical login program and session manager". 
+
+Lui aussi c'est possible de le customiser et on va utiliser "sdd-astronaut-theme". C'est une serie de theme (dynamiques et static) asez sympa. 
+Github : https://github.com/Keyitdev/sddm-astronaut-theme#
+
+> [!NOTE]
+> Il faudra analyser le code d'installation et les thèmes en eux même afin de facilement moidifier le wallpaper et proposer des themes en accords avec ceux du systèmes. Dans le script qui permettra de changer le thème du système, il faudra garder une cohérence en somme.
+
+
+Pour le coup l'installation de ce thème est plus simple étant donné qu'il vient avec un script TT. Voici les grandes ligne pour ajouter un thème et l'activer : 
+- installer des paquets necessaires : sddm qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
+-  ajouter le repo du theme dans `/usr/share/sddm/themes`
+-  ajouter les fonts nécessaires dans `/usr/share/fonts`
+-  éditer/créer `/etc/sddm.conf` : 
+```bash
+[Theme]
+    Current=sddm-astronaut-theme
+
+[General]
+    InputMethod=qtvirtualkeyboard
+```
+
+
+Pour sddm-astronaut-theme il faut modifier `/usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop` pour changer le thème : 
+```
+ConfigFile=Themes/le-theme-a-choisir.conf
+```
+
+
+
+Même si le script fournit permet de faire tout ça.
+
+
+
+### Wallpaper
+
+
+J'ai choisis d'utiliser hyprpaper, et la plupart de mes paquets seront des "hypr\*" parcequ'il sont souvent simple, léger, fait pour hyprland, recommandé par Hyprland.
+
+
+Github : https://github.com/hyprwm/hyprpaper 
+
+
+#### Installation 
+
+
+Hyprpaper : 
+
+
+```bash
+pacman -S hyprpaper
+```
+
+Dépendances (s'installent déjà avec pacman) : 
+```bash
+sudo pacman -S ninja gcc wayland-protocols libjpeg-turbo libwebp libjxl pango cairo pkgconf cmake libglvnd wayland hyprutils hyprwayland-scanner hyprlang
+```
+
+Créer le fichier `~/.config/hypr/hyprpaper.conf` et le remplir : 
+```bash
+preload = /path/to/image.png
+#if more than one preload is desired then continue to preload other backgrounds
+preload = /path/to/next_image.png
+# .. more preloads
+
+#set the default wallpaper(s) seen on initial workspace(s) --depending on the number of monitors used
+wallpaper = monitor1,/path/to/image.png
+#if more than one monitor in use, can load a 2nd image
+wallpaper = monitor2,/path/to/next_image.png
+# .. more monitors
+
+#enable splash text rendering over the wallpaper
+splash = true
+
+#fully disable ipc
+# ipc = off
+```
+
+(Voir la doc) 
+
+
+> [!NOTE]
+> Faire un script qui preload le nouveau wallpaper, set le nouveau wallpaper et unload l'ancien wallpaper
+
+
+Ajouter le fait d'executer hyprpaper au démarrage de Hyprland dans `~/.config/hypr/hyprland.conf` : 
+```bash
+$wallpaper = hyprpaper
+exec-once = $wallpaper
+```
+
+
+
+
 
 
