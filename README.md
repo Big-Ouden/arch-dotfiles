@@ -1,31 +1,31 @@
 # arch-dotfiles
 
 
-Le projet est peut être un peu fou mais l'objectif est de créer / assembler un os qui réponde exactement à mes besoins et qui soit léger en ressources en Idle et pour des opérations basiques.
+Le projet est peut être un peu fou mais l'objectif est de créer / assembler un os qui réponde exactement à mes besoins et qui soit léger en ressources en Idle et pour des opérations basiques. 
 
 # Mes besoins
 
 **Ressources**
-Il faut que la consommation de batterie soit optimisé => il faut une utilisation des ressources (RAM,CPU,GPU..👀) qui soient minimes.
-Il faut donc choisir une distro optimisé dans ce sens. Debian semble être un bon premier choix. 
-Voir si Arch ne serait pas mieux mais ATTENTION : Il faut de la stabilité (pas de problèmes à la con de librairies dynamiques .so par exemple)
+Il faut que la consommation de batterie soit optimisé => il faut une utilisation des ressources (RAM,CPU,GPU..👀) qui soient minimes. 
+Il faut donc choisir une distro optimisé dans ce sens. Debian semble être un bon premier choix.  
+Voir si Arch ne serait pas mieux mais ATTENTION : Il faut de la stabilité (pas de problèmes à la con de librairies dynamiques .so par exemple) 
 
-**UI**
+**UI** 
 
-Il faut pouvoir customizer l'apparence de la distro (top bar, terminal, shell, explorateur de fichier) et que le maximum de thèmes principaux soient supportés sur **tous** les logiciels : 
-- dark theme (basique)
-- light theme (basique)
-- catpuccin
-- gruvbox
-- tokyo-night
+Il faut pouvoir customizer l'apparence de la distro (top bar, terminal, shell, explorateur de fichier) et que le maximum de thèmes principaux soient supportés sur **tous** les logiciels :  
+- dark theme (basique) 
+- light theme (basique) 
+- catpuccin 
+- gruvbox 
+- tokyo-night 
 
-**UX**
+**UX** 
 
-Il faut que l'utilisateur ne s'embête pas sur des choses basiques (montage périphériques de stockage, connexion wifi/ethernet, changement de wallpaper, ajout de nouvel écran - et ce peu importe la taille de l'écran-).
-Il faut donc des applications GUI pour les utilisations basiques (ecran, connexion, ajout vpn ...)
+Il faut que l'utilisateur ne s'embête pas sur des choses basiques (montage périphériques de stockage, connexion wifi/ethernet, changement de wallpaper, ajout de nouvel écran - et ce peu importe la taille de l'écran-). 
+Il faut donc des applications GUI pour les utilisations basiques (ecran, connexion, ajout vpn ...) 
 
-Il faut un tiling windows manager (prcq le tiling c'est la meilleur chose qui existe) mais attention : 
-- il faut pas de problèmes d'affichages pour les appli gui (fenetre trop grande, gestionnaire de connexion qui se met en tout petit en mode tiling) => les application gui se mettent en floating par défaut (et/ou en avant plan )  
+Il faut un tiling windows manager (prcq le tiling c'est la meilleur chose qui existe) mais attention :  
+- il faut pas de problèmes d'affichages pour les appli gui (fenetre trop grande, gestionnaire de connexion qui se met en tout petit en mode tiling) => les application gui se mettent en floating par défaut (et/ou en avant plan )   
 
 
 # Choix
