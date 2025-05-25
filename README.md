@@ -46,8 +46,8 @@ Utilisation de devcontainers et Distrobox (ou équivalents) pour layered des app
 | Nom | Solution(s) |
 |:--:|:--:|
 | Kernel                  |   Default Arch Kernel + installer Linux-zen après (pour les paquets virtual box par ex) |
-| Display/login manager   |   sddm |
 | Display server          |   wayland |
+| Display/login manager   |   sddm |
 | Window manager          |   Hyprland |
 | shell                   |   bash (oui, plus de zsh !) |
 | Prompt                  |   Starship |
@@ -218,8 +218,45 @@ $wallpaper = hyprpaper
 exec-once = $wallpaper
 ```
 
+Ne pas oublier de modifier la config misc de hyprland. Sinon l'autre wallpaper de Hyprland se met en dessous de hyprpaper. En plus de le voir pendant 1 seconde au démarrage de Hyprland, dans l'idée c'est bizarre de laisser ça activer. : 
+```bash
+misc {
+    force_default_wallpaper = 1
+    disable_hyprland_logo = true
+}
+```
 
 
+### PARU
+
+"Paru is your standard pacman wrapping AUR helper with a lot of features and minimal interaction."
+
+Il suffit de suivre le repo git qui explique comment installer : 
+```bash
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+```
 
 
+Examples: 
+- paru <target> -- Interactively search and install <target>.
+- paru -- Alias for paru -Syu.
+- paru -S <target> -- Install a specific package.
+- paru -Sua -- Upgrade AUR packages.
+- paru -Qua -- Print available AUR updates.
+- paru -G <target> -- Download the PKGBUILD and related files of <target>.
+- paru -Gp <target> -- Print the PKGBUILD of <target>.
+- paru -Gc <target> -- Print the AUR comments of <target>.
+- paru --gendb -- Generate the devel database for tracking *-git packages. This is only needed when you initially start using paru.
+- paru -Bi . -- Build and install a PKGBUILD in the current directory.
 
+
+### Hyprzoom
+
+
+Ok c'est pas le truc le plus utile mais en fait si! Ça me manquais trop sur les autres distro (merci a Zel de m'avoir rappelé le nom du paquet).
+
+
+Premièrement il faut l'installer depuis AUR (voir la section sur PARU)
