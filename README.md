@@ -43,52 +43,54 @@ Utilisation de devcontainers et Distrobox (ou équivalents) pour layered des app
 
 ## Application
 
-| Nom | Solution(s) |
-|:--:|:--:|
-| Kernel                  |   Default Arch Kernel + installer Linux-zen après (pour les paquets virtual box par ex) |
-| Display server          |   wayland |
-| Display/login manager   |   sddm |
-| Window manager          |   Hyprland |
-| shell                   |   bash (oui, plus de zsh !) |
-| Prompt                  |   Starship |
-| terminal                |   kitty |
-| Top bar                 |   waybar |
-| Notification Daemno     |   dunst |
-| Launcher                |   fuzzel  |
-| File manager (tui)      |   yazi |
-| File manager (gui)      |   nemo |
-| File manager plugins    |   nemo-fileroller, nemo-terminal |
-| Font                    |   la font de Zel, Iosevka Nerd Font |
-| Editor                  |   Neovim - vim - Helix |
-| IDE                     |   Vscode (telemetry disabled) |
-| Dotfile manager         |   Stow |
-| Terminal multiplexer    |   Tmux (yen a vraiment d'autres ?) |
-| Zoom                    |   hypr-zoom |
-| Simple X11 menu         |   jgmenu |
-| Network Manager         |   Network Manager, network-manager-applet (pour waybar) |
-| Bluetooth manager       |   blueman, blueman-applet (pour waybar) |
-| Screenshoter            |   Hyprshot |
-| Clipboard manager       |   clipse |
-| GTK3 settings editor    |   nwg-look |
-| Monitor manager         |   nwg-displays |
-| Wallpaper manager       |   hyprpaper |
-| Color picker            |   hyprpicker  |
-| Lockscreen              |   hyprlock |
-| Discord                 |   Vesktop |
-| Discord (web)           |   Webcord |
-| Cursor                  |   Hyprcursor |
-| Theme switcher          |   https://github.com/Petingoso/dotfiles - dotfiles/dot_local/bin/executable_theme_changer_WL |
-| bluelight filter + shader manager   |   hyprshade    |
-| Browser                 |   Firefox, python-pywalfox, python-pywal (firefox and auto firefox theming) |
-| Password manager        |   bitwarden |
-| System fetch            |   Neofetch, macchina |
-| Pdf viewer              |   Zathura |
-| sound and brightness    |   playerctl, light ?? |
-| Video player            |   mpv |
-| Image viewer            |   qView |
-| Calculator              |   Rofi-calc |
-| Report editor           |   Latex (devcontainers), Typst (devcontainer too ??) |
-| VPN                     |   OpenVPN, wireguard |
+| Nom | Solution(s) | Done |
+|:--:|:--:|:--:|
+| Kernel                  |   Default Arch Kernel + installer Linux-zen après (pour les paquets virtual box par ex) | x |
+| Display server          |   wayland | x |
+| Display/login manager   |   sddm | ~ |
+| Bootmenu                |   Grub | ~ |
+| Window manager          |   Hyprland | x |
+| AUR Helper              |   Paru | x |
+| shell                   |   bash (oui, plus de zsh !) | |
+| Prompt                  |   Starship | |
+| terminal                |   kitty | |
+| Top bar                 |   waybar | |
+| Notification Daemno     |   dunst | |
+| Launcher                |   fuzzel  | |
+| File manager (tui)      |   yazi | |
+| File manager (gui)      |   nemo | |
+| File manager plugins    |   nemo-fileroller, nemo-terminal | |
+| Font                    |   la font de Zel, Iosevka Nerd Font | |
+| Editor                  |   Neovim - vim - Helix | |
+| IDE                     |   Vscode (telemetry disabled) | |
+| Dotfile manager         |   Stow | |
+| Terminal multiplexer    |   Tmux (yen a vraiment d'autres ?) | |
+| Zoom                    |   hypr-zoom | x |
+| Simple X11 menu         |   jgmenu | |
+| Network Manager         |   Network Manager, network-manager-applet (pour waybar) | |
+| Bluetooth manager       |   blueman, blueman-applet (pour waybar) | |
+| Screenshoter            |   Hyprshot | |
+| Clipboard manager       |   clipse | |
+| GTK3 settings editor    |   nwg-look | |
+| Monitor manager         |   nwg-displays | |
+| Wallpaper manager       |   hyprpaper | ~ |
+| Color picker            |   hyprpicker  | |
+| Lockscreen              |   hyprlock | |
+| Discord                 |   Vesktop | |
+| Discord (web)           |   Webcord | |
+| Cursor                  |   Hyprcursor | |
+| Theme switcher          |   [https://github.com/Petingoso/dotfiles - dotfiles/dot_local/bin/executable_theme_changer_WL] | |
+| bluelight filter + shader manager   |   hyprshade    | |
+| Browser                 |   Firefox, python-pywalfox, python-pywal (firefox and auto firefox theming) | |
+| Password manager        |   bitwarden | |
+| System fetch            |   Neofetch, macchina | |
+| Pdf viewer              |   Zathura | |
+| sound and brightness    |   playerctl, light ?? | |
+| Video player            |   mpv | |
+| Image viewer            |   qView | |
+| Calculator              |   Rofi-calc | |
+| Report editor           |   Latex (devcontainers), Typst (devcontainer too ??) | |
+| VPN                     |   OpenVPN, wireguard | |
 
 Application à installer:
 syncthing
@@ -253,6 +255,41 @@ Examples:
 - `paru -Bi . ` -- Build and install a PKGBUILD in the current directory.
 
 
+### Scratchpad
+
+Le principe du scratchpad est d'envoyer une fenetre dans un bureau qui est ailleur et qui n'est pas parmis ceux que l'on utilise d'habitude (1-9). Par exemple on peut envoyer une fenetre de terminal dans le scratchpad le temps d'écrire du code et la faire revenir pour compiler ce programme dans le terminal que nous avions viré. 
+
+Personnellement, j'utilise le scratchpad pour virer des fenêtre qui me serviront plus tard ou où des programmes tournent et que je veux virer de mon espace visuel.
+
+J'ai un peu du mal à utiliser le scratchpad natif d'Hyprland du coup j'ai utilisé une contribution de la communauté : https://github.com/hyprwm/contrib.
+
+Dépendances : 
+- jq
+- rofi
+
+```bash
+sudo pacman -S jq rofi
+``` 
+
+
+Il suffit de cloner le repo et faire un `sudo make install`. Je n'ai pas encore vérifié le code à l'intérieur.
+
+
+> [!NOTe]
+> Il faudrait modifier le code source pour que le launcher puisse être différent de rofi (fuzzel par ex)
+
+J'ai ensuite choisi les keybind suivant dans la config hyprland: 
+```bash
+bind = $mainMod, code:20, exec, scratchpad
+bind = $mainMod SHIFT, code:20,exec,  scratchpad -g
+```
+
+Keybinds: 
+-  `SUPER+)` : envoyer le fenetre courante dans le scratchpad
+- `SUPER+SHIFT+)` : afficher un menu rofi pour choisir la fenêtre à faire revenir
+
+
+
 ### Hyprzoom
 
 
@@ -260,3 +297,30 @@ Ok c'est pas le truc le plus utile mais en fait si! Ça me manquais trop sur les
 
 
 Premièrement il faut l'installer depuis AUR (voir la section sur PARU)
+```bash
+paru hypr-zoom
+```
+
+Puis ajouter ces keybinds à hyprland : 
+```bash
+# Zoom In/Out anywhere with hypr-zoom
+bind = $mainMod, code:21, exec, hypr-zoom -easing=InOutExpo -duration=100 -steps=50 -target=2 
+bind = $mainMod SHIFT, mouse:272, exec, hypr-zoom -easing=InOutExpo -duration=100 -steps=50 -target=2 
+```
+
+et de commenter ceux-là (oui c'est gratuit) : 
+```bash
+# Scroll through existing workspaces with mainMod + scroll
+#bind = $mainMod, mouse_down, workspace, e+1
+#bind = $mainMod, mouse_up, workspace, e-1
+```
+
+
+Keybinds : 
+- `SUPER+=` : active/désactive le zoom
+- `SUPER+SHIFT+right_click` : active/désactive le zoom 
+
+
+
+
+
