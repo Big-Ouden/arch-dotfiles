@@ -81,7 +81,7 @@ Utilisation de devcontainers et Distrobox (ou équivalents) pour layered des app
 | Cursor                  |   Hyprcursor | |
 | Theme switcher          |   [https://github.com/Petingoso/dotfiles - dotfiles/dot_local/bin/executable_theme_changer_WL] | |
 | bluelight filter + shader manager   |   hyprshade    | |
-| Browser                 |   Firefox, python-pywalfox, python-pywal (firefox and auto firefox theming) | |
+| Browser                 |   Firefox, python-pywalfox, python-pywal (firefox and auto firefox theming), librewolf | |
 | Password manager        |   bitwarden | |
 | System fetch            |   Neofetch, macchina | |
 | Pdf viewer              |   Zathura | |
@@ -321,6 +321,124 @@ Keybinds :
 - `SUPER+SHIFT+right_click` : active/désactive le zoom 
 
 
+
+
+### Bash
+
+(voir d'abord les plugins)
+
+#### Bash profile
+
+#### Bashrc
+
+
+#### Aliases
+
+#### Plugins
+
+
+### Starship Prompt
+
+
+### Vim
+
+### Neovim
+
+
+### Gitconfig
+
+
+### Kitty 
+(attention bien regarder les ligature et emoji)
+
+### Dunst
+
+### Fuzzel
+(regarder a intégrer fuzzel dans scratchpad + comment lui appliquer des thèmes)
+
+
+### Yazi (file manager)
+
+### Nemo (ou thunar en fonction du support des themes)
+
+
+### Vscode
+
+
+### Cursor (script reinitialisation code premium tmtc)
+
+
+### Stow
+
+
+### Tmux
+
+
+### Jgmenu
+
+(voir comment bien l'intégrer pour pas que ça fasse double avec fuzzel)
+
+### Hyprshot
+(mettre les hypr au meme endroit)
+
+
+### Hyprpaper
+(faire les script => section déjà commencée plus haut)
+
+### Hyprpicker
+
+### Hyprlock
+
+### Hyprshade
+
+### Vesktop
+
+### Webcord
+
+### Clispe
+
+### Zathura (ou atril)
+
+### mpv
+
+### Bitwarden
+(voir si on peut l'intégrer avec fuzzel)
+
+### Wireguard 
+
+
+### Blueman
+
+
+### NetworkManager
+
+### nwg-look
+
+### nwg-display
+
+### Waybar
+
+### Hyprland
+
+#### Monitor
+
+#### Exec-once (startup)
+
+#### Environment variables
+
+#### Permissions
+
+#### Look and feel (setup) 
+
+#### Inputs
+
+
+#### Keybindings
+
+
+#### Rules
+
+### Theming
 
 
 
