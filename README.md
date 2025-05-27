@@ -442,3 +442,5 @@ Keybinds :
 
 
 
+# Configurations dont je me suis inspiré
+
