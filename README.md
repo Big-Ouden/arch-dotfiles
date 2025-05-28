@@ -409,6 +409,27 @@ L'autocompletion et l'auto-suggestion sont plutôt bonne. Pour l'instant je rest
  bind 'TAB:menu-complete'
  ```
 
+> [!IMPORTANT]
+> Je pense qu'il va falloir passer à zsh pour le ricing prcq bash n'as pas vraiment l'air d'être fait pour ça.
+
+Ok ça part sur zsh prcq c'est super chiant a customiser. Par contre on garde un prompt du genre :
+```txt
+┌─[bigouden]@[tleta][~] 
+└─▪  
+
+┌─[bigouden][tleta][±][{branch git}main U:1 ✗][~/arch-dotfiles]
+└─▪  
+```
+
+TODO : C'EST VRAIMENT LA PROCHAINE CHOSE À FAIRE PRCQ LA C'EST CLQUÉ. Le hightlight de si une commande est bonne est franchement à s'arracher le yeux.
+
+### Kitty 
+(attention bien regarder les ligature et emoji)
+
+Ajout d'un theme généric qui est load dans `~/.config/kitty/kitty.conf` depuis `~/.config/kitty/theme.conf`
+
+
+J'ai trouvé une conf un peu générique sur un github : [https://github.com/liuchengxu/dotfiles/blob/master/kitty.conf]
 
 ### Vim
 
@@ -418,8 +439,6 @@ L'autocompletion et l'auto-suggestion sont plutôt bonne. Pour l'instant je rest
 ### Gitconfig
 
 
-### Kitty 
-(attention bien regarder les ligature et emoji)
 
 ### Dunst
 
