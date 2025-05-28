@@ -514,7 +514,8 @@ L'autocompletion et l'auto-suggestion sont plutôt bonne. Pour l'instant je rest
 
 
 > [!NOTE]
-> Fait marrant, le message qui s'affiche en bas par défaut sur hyprland sont ici : `/usr/include/hyprland/src/helpers/Splashes.hpp`. Et il est possible de désactiver son affichage au démarrage (exec-once) avec l'option : 
+> Fait marrant, le message qui s'affiche en bas par défaut sur hyprland sont ici : `/usr/include/hyprland/src/helpers/Splashes.hpp`. Et il est possible de désactiver son affichage au démarrage (exec-once) avec l'option :  
+
 | variable | description	| type | default|
 |:--:|:--:|:--:|:--:|
 | splash	| enable rendering of the hyprland splash over the wallpaper |bool | false |
