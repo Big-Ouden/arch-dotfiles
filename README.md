@@ -56,7 +56,7 @@ Utilisation de devcontainers et Distrobox (ou équivalents) pour layered des app
 | terminal                |   kitty | |
 | Top bar                 |   waybar | |
 | Notification Daemno     |   dunst | |
-| Launcher                |   fuzzel  | |
+| Launcher                |   ~~fuzzel~~ Rofi finalement  | |
 | File manager (tui)      |   yazi | |
 | File manager (gui)      |   nemo | |
 | File manager plugins    |   nemo-fileroller, nemo-terminal | |
@@ -275,8 +275,8 @@ sudo pacman -S jq rofi
 Il suffit de cloner le repo et faire un `sudo make install`. Je n'ai pas encore vérifié le code à l'intérieur.
 
 
-> [!NOTe]
-> Il faudrait modifier le code source pour que le launcher puisse être différent de rofi (fuzzel par ex)
+> [!NOTE]
+> Il faudrait modifier le code source pour que le launcher puisse être différent de rofi (~~fuzzel par ex~~ en fait non)
 
 J'ai ensuite choisi les keybind suivant dans la config hyprland: 
 ```bash
@@ -442,8 +442,8 @@ J'ai trouvé une conf un peu générique sur un github : [https://github.com/liu
 
 ### Dunst
 
-### Fuzzel
-(regarder a intégrer fuzzel dans scratchpad + comment lui appliquer des thèmes)
+### ~~Fuzzel~~ ROFI (prcq ya un selecteur de themes)
+~~(regarder a intégrer fuzzel dans scratchpad + comment lui appliquer des thèmes)~~
 
 
 ### Yazi (file manager)
@@ -465,7 +465,6 @@ J'ai trouvé une conf un peu générique sur un github : [https://github.com/liu
 
 ### Jgmenu
 
-(voir comment bien l'intégrer pour pas que ça fasse double avec fuzzel)
 
 ### Hyprshot
 (mettre les hypr au meme endroit)
@@ -491,7 +490,7 @@ J'ai trouvé une conf un peu générique sur un github : [https://github.com/liu
 ### mpv
 
 ### Bitwarden
-(voir si on peut l'intégrer avec fuzzel)
+(voir si on peut l'intégrer avec ~~fuzzel~~ rofi)
 
 ### Wireguard 
 
