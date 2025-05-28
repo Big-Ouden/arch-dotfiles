@@ -327,17 +327,87 @@ Keybinds :
 
 (voir d'abord les plugins)
 
-#### Bash profile
+#### Bash profile/Bashrc
 
-#### Bashrc
+Utilisation de oh-my-bash, "an open source, community-driven framework for managing your bash configuration" ([https://github.com/ohmybash/oh-my-bash]). 
 
 
-#### Aliases
+Script d'installation : 
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+```
+
+Ce script remplace le .bashrc par celui donné par oh-my-bash (et fait une backup de l'ancien). 
+> [!IMPORTANT]
+> Il faut bien vérifier que dans le `.bash_profile` le `.bashrc` soit sourcé : `[[ -f ~/.bashrc ]] && . ~/.bashrc`
+
+
+### Theme
+
+Il y a beaucoup (plus d'une centaine) de thèmes disponibles avec oh-my-bash (YOUPII le rice!!). 
+
+Liste de thèmes sympas : 
+- rjorgenson
+- mairan
+- nekonight\_moon
+- rana
+- modern-t
+ 
+
+
 
 #### Plugins
 
 
-### Starship Prompt
+
+
+#### Aliases
+
+Il faut aller voir la doc / le bashrc pour voir comment ça fontionne. Mais si on veut custom dans ce cas il faut aller dans `.oh-my-bash/custom/{completions,aliases,plugins,themes}/` puis les load dans le bashrc : 
+```bash
+completions={
+    custom
+}
+...
+```
+Il y a quelques alias dans general.aliases.sh mais ils ne sont pas fou donc on peut en faire en plus un custom.
+
+
+### Autocomplete
+
+#### ble.sh
+
+"Bash Line Editor (ble.sh†1) is a command line editor written in pure Bash†2 which replaces the default GNU Readline."
+
+Installation (devel) : 
+```bash
+paru blesh-git
+```
+
+Il faut ensuite l'ajouter à son bashrc:
+```bash
+# bashrc
+
+# Add this lines at the top of .bashrc:
+[[ $- == *i* ]] && source /path/to/blesh/ble.sh --noattach
+
+# your bashrc settings come here...
+
+# Add this line at the end of .bashrc:
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+```
+
+
+L'autocompletion et l'auto-suggestion sont plutôt bonne. Pour l'instant je reste sur ça.
+
+
+> [!NOTE]
+> Il y avait la possibilité de mettre ceci dans le bashrc mais c'est pas aussi sympas que blesh.
+
+ ```bash
+ bind 'set show-all-if-ambiguous on'
+ bind 'TAB:menu-complete'
+ ```
 
 
 ### Vim
@@ -442,3 +512,11 @@ Keybinds :
 
 
 
+
+> [!NOTE]
+> Fait marrant, le message qui s'affiche en bas par défaut sur hyprland sont ici : `/usr/include/hyprland/src/helpers/Splashes.hpp`. Et il est possible de désactiver son affichage au démarrage (exec-once) avec l'option : 
+| variable | description	| type | default|
+|:--:|:--:|:--:|:--:|
+| splash	| enable rendering of the hyprland splash over the wallpaper |bool | false |
+# Paquet supplémentaires
+- less
