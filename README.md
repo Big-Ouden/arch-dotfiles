@@ -518,5 +518,11 @@ L'autocompletion et l'auto-suggestion sont plutôt bonne. Pour l'instant je rest
 | variable | description	| type | default|
 |:--:|:--:|:--:|:--:|
 | splash	| enable rendering of the hyprland splash over the wallpaper |bool | false |
+
 # Paquet supplémentaires
+
 - less
+
+
+# Configurations dont je me suis inspiré
+
