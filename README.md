@@ -354,13 +354,6 @@ Liste de thèmes sympas :
 - modern-t
  
 
-
-
-#### Plugins
-
-
-
-
 #### Aliases
 
 Il faut aller voir la doc / le bashrc pour voir comment ça fontionne. Mais si on veut custom dans ce cas il faut aller dans `.oh-my-bash/custom/{completions,aliases,plugins,themes}/` puis les load dans le bashrc : 
@@ -421,15 +414,75 @@ Ok ça part sur zsh prcq c'est super chiant a customiser. Par contre on garde un
 └─▪  
 ```
 
-TODO : C'EST VRAIMENT LA PROCHAINE CHOSE À FAIRE PRCQ LA C'EST CLQUÉ. Le hightlight de si une commande est bonne est franchement à s'arracher le yeux.
+
+### Zsh
+
+ça y est c'est installé. Ya vraiment rien de plus facile : 
+```bash
+sudo pacman -S zsh
+```
+
+Voilaaa 
+
+Tout la config est dans `~/.zshenv` pour les variables d'environement(et doit rester dans le HOME), et le reste est :
+```txt
+.config/zsh
+├── aliases
+├── ohmyzsh
+├── .shell.pre-oh-my-zsh
+├── .zcompdump
+├── .zcompdump-tleta-5.9
+├── .zcompdump-tleta-5.9.zwc
+├── .zhistory
+├── .zshrc
+└── .zshrc.pre-oh-my-zsh
+```
+
+En suite on ajoute les `source` pour sourcer d'autres fichier (ex: aliases) et on ajoute dans `.zshrc` les plugins à jouter etc. 
+
+
+Plugins ajouté : 
+- rbw (CLI bitwarden : [https://github.com/doy/rbw])
+- zsh-autosuggestion (via `$DOTFILES/zsh/custom-plugins)
+- zsh-syntax-highlighting
+
+
+
+#### Themes
+
+Ont mets tout les themes custom (pour que ce soit plus facile à controller) dans `$DOTFILES/zsh/custom-theme`. Themes dispo :  
+
+- Catppucin ([https://github.com/JannoTjarks/catppuccin-zsh])
+Installation : 
+```bash
+git clone https://github.com/JannoTjarks/catppuccin-zsh.git
+mkdir ~/.oh-my-zsh/themes/catppuccin-flavors
+
+ln catppuccin-zsh/catppuccin.zsh-theme ~/.oh-my-zsh/themes/
+ln catppuccin-zsh/catppuccin-flavors/* ~/.oh-my-zsh/themes/catppuccin-flavors
+```
+
+Utilisation :
+
+```bash
+ZSH_THEME="catppuccin"
+CATPPUCCIN_FLAVOR="mocha" # Required! Options: mocha, flappe, macchiato, latte
+CATPPUCCIN_SHOW_TIME=true  # Optional! If set to true, this will add the current time to the prompt.
+```
+
+> [!TODO] 
+> Faire sois-même les themes de prompt
 
 ### Kitty 
 (attention bien regarder les ligature et emoji)
 
 Ajout d'un theme généric qui est load dans `~/.config/kitty/kitty.conf` depuis `~/.config/kitty/theme.conf`
-
+Les autres themes sont load la dedans (catppucin etc)
 
 J'ai trouvé une conf un peu générique sur un github : [https://github.com/liuchengxu/dotfiles/blob/master/kitty.conf]
+
+> [!TODO] 
+> Faire sois-même les themes
 
 ### Vim
 
@@ -491,6 +544,10 @@ J'ai trouvé une conf un peu générique sur un github : [https://github.com/liu
 
 ### Bitwarden
 (voir si on peut l'intégrer avec ~~fuzzel~~ rofi)
+OUiiiiii. 
+Utiliser rbw-rofi
+
+
 
 ### Wireguard 
 
