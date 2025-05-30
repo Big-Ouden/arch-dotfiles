@@ -484,6 +484,47 @@ J'ai trouvé une conf un peu générique sur un github : [https://github.com/liu
 > [!TODO] 
 > Faire sois-même les themes
 
+
+### Starship
+
+[https://starship.rs/]
+
+Starship permet de facilement faire ses prompts et les customiser super facilement. On va s'en servir pour faire des prompts personnalisé pour chaque thèmes du systèmes.
+
+
+On commence par installer starship : 
+```bash
+pacman -S starship
+```
+
+
+Et on l'ajoute à notre `.zshrc` : 
+```bash
+eval "$(starship init zsh)"
+```
+
+
+> [!NOTE]
+> Et on enlève les thèmes de oh-my-zsh. 
+
+
+On peut changer les thèmes dans `~/.config/starship/starship.toml` : 
+```bash
+palette = "gruvbox_dark"
+```
+
+Les thèmes disponibles sont : 
+- `gruvbox_dark`
+- `catppucin_mocha`
+- `catppucin_frappe`
+- `catppucin_latte`
+- `catppucin_macchiato`
+
+
+Je pense que la config est pas mal, on peut passer à autre chose :yay: 
+
+
+
 ### Vim
 
 ### Neovim
@@ -598,7 +639,8 @@ Utiliser rbw-rofi
 # Paquet supplémentaires
 
 - less
-
+- tree
+- unzip
 
 # Configurations dont je me suis inspiré
 
