@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/bigouden/.vim'
+let g:netrw_dirhist_1='/home/bigouden/.config/zsh/custom-theme/rice-theme'
+let g:netrw_dirhist_0='/home/bigouden/.config/zsh/custom-theme/rice-theme/assets'
+let g:netrw_dirhist_9='/home/bigouden/.config/zsh/custom-theme/rice-theme'
+let g:netrw_dirhist_8='/home/bigouden/.config/kitty'
+let g:netrw_dirhist_7='/home/bigouden/.config/zsh/plugins'
+let g:netrw_dirhist_6='/home/bigouden/.config/zsh/plugins/zsh-completions'
+let g:netrw_dirhist_5='/home/bigouden/.config/kitty'
+let g:netrw_dirhist_4='/home/bigouden/.oh-my-bash/plugins/bashmarks'
+let g:netrw_dirhist_3='/home/bigouden/.oh-my-bash/completions'

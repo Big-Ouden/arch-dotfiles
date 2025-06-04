@@ -1,0 +1,137 @@
+#!/usr/bin/env zsh
+
+
+#!/usr/bin/env bash
+
+# +--------+
+# | System |
+# +--------+
+
+alias shutdown='sudo shutdown now'
+alias restart='sudo reboot'
+alias suspend='sudo pm-suspend'
+
+# +--------+
+# |   Git  |
+# +--------+
+
+
+alias gst="git status"
+alias g="lazygit"
+alias ga="git add"
+alias gaa="git add --all"
+alias gav="git add --verbose"
+alias gb="git branch"
+alias gba="git brnanch -a"
+alias gbD="git brnach --delete"
+alias gbsup='git branch --set-upstream-to="origin/$(git_current_branch)"'
+alias gco='git checkout'
+alias gcl="git clone --recursive"
+alias gcf="git config --list"
+alias gc="git commit"
+alias gcm='git commit -m'
+alias grm="git rm"
+alias grmc="git rm --cached"
+alias glog="git log --stat"
+alias gglog="git log --graph"
+alias glod='command git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"'
+alias gm="git merge"
+alias gp="git push"
+alias gpl="git pull"
+alias gplr="git pull --rebase"
+alias gdiff="git diff -w --word-diff=color --ignore-space-at-eol"
+alias gsh='command git show'
+alias gsps='command git show --pretty=short --show-signature'
+alias gsw="git switch"
+alias gta="git tag --annoate"
+
+
+# +--------+
+# | Editor |
+# +--------+
+
+alias nano="vim"
+alias vi="vim"
+
+
+
+
+
+# +----+
+# | ls |
+# +----+
+
+
+alias ll='ls -lAFh'                         # Preferred 'ls' implementation
+alias less='less -FSRXc'                    # Preferred 'less' implementation
+alias wget='wget -c'                        # Preferred 'wget' implementation (resume download)
+alias c='clear'                             # c:            Clear terminal display
+alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+alias show_options='shopt'                  # Show_options: display bash options settings
+alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
+alias fix_term='echo -e "\033c"'            # fix_term:     Reset the conosle.  Similar to the reset command
+alias cic='bind "set completion-ignore-case on"' # cic:          Make tab-completion case-insensitive
+alias src='source $DOTFILES/zsh/.zshrc'                # src:          Reload .bashrc file
+
+
+# +------+
+# | grep |
+# +------+
+
+alias grep="grep -P -i --color=auto"
+
+# +------+
+# | ping |
+# +------+
+
+alias pg='ping 8.8.8.8'
+
+
+# +--------+
+# | pacman |
+# +--------+
+
+alias paci='sudo pacman -S'               # install
+alias pachi='sudo pacman -Ql'             # Pacman Has Installed - what files where installed in a package
+alias pacs='sudo pacman -Ss'              # search
+alias pacu='sudo pacman -Syu'             # update
+alias pacr='sudo pacman -R'               # remove package but not dependencies
+alias pacrr='sudo pacman -Rs'             # remove package with unused dependencies by other softwares
+alias pacrc='sudo pacman -Sc'             # remove pacman's cache
+alias pacro='pacman -Rns $(pacman -Qtdq)'
+alias pacrl='rm /var/lib/pacman/db.lck'   # pacman remove locks
+alias pacls="sudo pacman -Qe"
+alias pacc='sudo pacman -Sc'
+alias paccc='sudo pacman -Scc'            # empty the whole cache
+
+# +-------+
+# | fonts |
+# +-------+
+
+alias fonts='fc-cache -f -v'
+
+
+
+# +---------+
+# | netstat |
+# +---------+
+
+alias port="netstat -tulpn | grep"
+
+# +--------+
+# | Custom |
+# +--------+
+
+
+# Remplacement de hostname
+alias hostname="hostnamectl hostname"
+alias untar="tar xvf"
+# Pour faire fonctionner clear / CTRL-L / les couleurs etc
+# Voir la doc : https://sw.kovidgoyal.net/kitty/faq/
+alias ssh="kitten ssh"
+
+
+
+# +---------+
+# | scripts |
+# +---------+
