@@ -443,7 +443,7 @@ En suite on ajoute les `source` pour sourcer d'autres fichier (ex: aliases) et o
 
 Plugins ajouté : 
 - rbw (CLI bitwarden : [https://github.com/doy/rbw])
-- zsh-autosuggestion (via `$DOTFILES/zsh/custom-plugins)
+- zsh-autosuggestion (via `$DOTFILES/zsh/custom-plugins`)
 - zsh-syntax-highlighting
 
 
@@ -527,8 +527,21 @@ Je pense que la config est pas mal, on peut passer à autre chose :yay:
 
 ### Vim
 
+
+Installer vim-plug (manager de plugin) : 
+```bash
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+En gros il y a plein de plugins et notemment le thème gruvbox. Il y a aussi le plugin avec le theme catppuccin. Il faut choisir avec : 
+```vim
+colorscheme gruvbox
+colorscheme catppuccin " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha`
+```
+
 ### Neovim
 
+Holala ça y est on rentre dans le vif du sujet !!
 
 ### Gitconfig
 
@@ -562,7 +575,7 @@ Je pense que la config est pas mal, on peut passer à autre chose :yay:
 
 ### Hyprshot
 (mettre les hypr au meme endroit)
-
+voir hyprshotgui et hyprshotgun (cloud)
 
 ### Hyprpaper
 (faire les script => section déjà commencée plus haut)
@@ -641,6 +654,8 @@ Utiliser rbw-rofi
 - less
 - tree
 - unzip
+- fzf
+- npm
 
 # Configurations dont je me suis inspiré
 
