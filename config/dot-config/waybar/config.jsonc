@@ -1,0 +1,205 @@
+{
+  "layer": "top",
+  "height": 12,
+  "spacing": 5,
+  "margin-top" :5,
+  "margin-right" :8,
+  "margin-left" :8,
+
+  "modules-left": [
+    "custom/wofi",
+    "sway/workspaces",
+    "sway/window",
+    "hyprland/workspaces",
+    "tray",
+    "custom/date",
+    //"hyprland/window",
+    "clock"
+  ],
+
+  "modules-center": ["hyprland/window"],
+
+  "modules-right": [
+    "disk",
+    //"cpu",
+    //"temperature",
+    "custom/memory",
+    "backlight",
+    "cava",
+    "pulseaudio",
+    "battery",
+  ],
+
+  "custom/wofi": {
+		"format": "<span >󰣇</span>",
+		"on-click": "wofi --show drun",
+    "on-click-right": "~/.config/custom_scripts/power.sh",
+    "escape" : true,
+    "tooltip" : false
+	},
+
+  // Modules configuration
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "active-only": false,
+    "all-outputs": true,
+    "warp-on-scroll": false,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "<span >1</span>",
+      "2": "<span >2</span>",
+      "3": "<span >3</span>",
+      "4": "<span >4</span>",
+      "5": "<span >5</span>",
+      "6": "<span >6</span>",
+      "7": "<span >7</span>",
+      "8": "<span >8</span>",
+      "9": "<span >9</span>"
+    }
+  },
+
+  "sway/window": {
+    "format": "<span color='#202020' bgcolor='#d3869b' > 󰣆 </span> {app_id}",
+    "separate-outputs": true,
+    "icon":false,
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "active-only": false,
+    "all-outputs": true,
+    "warp-on-scroll": false,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "<span >1</span>",
+      "2": "<span >2</span>",
+      "3": "<span >3</span>",
+      "4": "<span >4</span>",
+      "5": "<span >5</span>",
+      "6": "<span >6</span>",
+      "7": "<span >7</span>",
+      "8": "<span >8</span>",
+      "9": "<span >9</span>"
+    }
+  },
+
+  "hyprland/window": {
+    "format": "<span color='#202020' bgcolor='#d3869b' > 󰣆 </span> {class}",
+    "separate-outputs": true,
+    "icon":false,
+  },
+
+  "tray": {
+    "icon-size": 15,
+    "spacing": 8
+  },
+
+  "disk": {
+    "format": "<span color='#202020' bgcolor='#ea6962' >  </span> {free}",
+    "on-click-right":"hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty btop'",
+    "on-click":"hyprctl dispatch exec '[float; center; size 950 400] kitty --title float_kitty dua i ~/'",
+    "interval": 20
+  },
+
+  "cpu": {
+    "format": "<span color='#202020' bgcolor='#e78a4e' >  </span> {usage}%",
+    "on-click":"hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty btop'",
+    "tooltip": false,
+    "interval": 1
+  },
+
+  "temperature": {
+    "tooltip":false,
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+    "critical-threshold": 70,
+    "format": "<span color='#202020' bgcolor='#d8a657' > 󰴈 </span> {temperatureC}°C",
+    "format-critical": "<span color='#202020' bgcolor='#cc241d' >  </span> {temperatureC}°C",
+    "on-click":"hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty btop'"
+  },
+
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "<span color='#202020' bgcolor='#f6c657' > 󰞏 </span> {percent}%",
+    "tooltip": false
+  },
+
+  "custom/memory": {
+    "exec": "~/.config/custom_scripts/memory_usage.sh",
+    "on-click":"hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty btop'",
+    "interval": 2,
+    "return-type": "json",
+    "format": "<span color='#202020' bgcolor='#458588' >  </span> {}"
+  },
+
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "<span color='#202020' bgcolor='#83a598' >  </span> {volume}%",
+    "format-muted": "<span color='#202020' bgcolor='#ea6962' >  </span> {volume}%",
+    "format-bluetooth": "<span color='#202020' bgcolor='#83a598' > 󰂰 </span> {volume}%",
+    "format-bluetooth-muted": "<span color='#202020' bgcolor='#ea6962' > 󰂲 </span> {volume}%",
+    "format-source": "{volume}% ",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "tooltip": false,
+    "max-volume": 130
+  },
+
+  "cava" : {
+//        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+        "framerate": 60,
+        "autosens": 1,
+        "sensitivity": 1,
+        "bars": 7,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pipewire",
+        "source": "auto",
+        "stereo": true,
+        "reverse": false,
+        "bar_delimiter": 0,
+        "monstercat": false,
+        "waves": true,
+        //"noise_reduction": 0.77,
+        "noise_reduction": 0.5,
+        "input_delay": 2,
+        "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        //"format-icons" : ["▁", "▂", "▃", "▄", "▅"  ],
+        "actions": {
+                   "on-click-right": "mode"
+                   }
+  },
+
+  "battery#bat2": {
+    "bat": "BAT2"
+  },
+
+  "battery": {
+    "interval": 1,
+    "states": {
+      "good": 99,
+      "warning": 30,
+      "critical": 20
+    },
+    "format-icons": ["󰂎","󰁺","󰁻","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
+    "format": "<span color='#202020' bgcolor='#689d6a' > {icon} </span> {capacity}%",
+    "format-critical": "<span color='#202020' bgcolor='#cc241d' > {icon} </span> {capacity}%!!",
+    "format-warning": "<span color='#202020' bgcolor='#e78a4e' > {icon} </span> {capacity}%",
+    "format-full": "<span color='#202020' bgcolor='#689d6a' > {icon} </span> {capacity}%",
+    "format-charging": "<span color='#202020' bgcolor='#689d6a' > 󰂅 </span> {capacity}%",
+    "format-charging-warning": "<span color='#202020' bgcolor='#e78a4e' > 󰢝 </span> {capacity}%",
+    "format-charging-critical": "<span color='#202020' bgcolor='#cc241d' > 󰢜 </span> {capacity}%",
+    "format-plugged": "<span color='#202020' bgcolor='#689d6a' > 󰂅 </span> {capacity}%",
+    "format-alt": "<span color='#202020' bgcolor='#689d6a' > 󱧥 </span> {time}",
+    "tooltip": false
+  },
+
+  "clock": {
+    // "timezone": "America/New_York",
+    "format": "{:%H:%M}",
+    "tooltip": false,
+    "interval":1,
+  },
+  "custom/date": {
+    "exec": "date '+%D'",
+  },
+}

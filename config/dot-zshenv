@@ -28,6 +28,6 @@ export VISUAL="nvim"
 # Man pages
 export MANPAGER='nvim +Man!'
 
+# PATH
 
-
-
+export PATH=~/arch-dotfiles/config/dot-config/custom_scripts:$PATH

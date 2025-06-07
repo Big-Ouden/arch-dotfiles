@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if (ps aux | grep mpv | grep -v grep > /dev/null); then
+    pkill mpv
+else
+    runbg mpv --no-video ~/.config/custom-scripts/lofi.mp3
+fi

@@ -553,9 +553,28 @@ Holala ça y est on rentre dans le vif du sujet !!
 ~~(regarder a intégrer fuzzel dans scratchpad + comment lui appliquer des thèmes)~~
 
 
-### Yazi (file manager)
 
-### Nemo (ou thunar en fonction du support des themes)
+
+### Yazi (file manager)
+Installation : 
+```bash
+sudo pacman -S yazi
+```
+
+### SwayOSD
+
+Installation : 
+```bash
+paru swayosd-git
+```
+
+Config : 
+```bash
+~/.config/swayosd/style.css
+```
+
+
+### Dolphin 
 
 
 ### Vscode
@@ -577,12 +596,29 @@ Holala ça y est on rentre dans le vif du sujet !!
 (mettre les hypr au meme endroit)
 voir hyprshotgui et hyprshotgun (cloud)
 
+```bash
+paru hyprshot-git
+```
+
 ### Hyprpaper
 (faire les script => section déjà commencée plus haut)
 
+```bash
+paru hyprpaper
+```
+
+
 ### Hyprpicker
 
+```bash
+sudo pacman -S hyprpicker
+```
+
 ### Hyprlock
+```bash
+paru hyprshot-git
+```
+
 
 ### Hyprshade
 
@@ -615,7 +651,25 @@ Utiliser rbw-rofi
 
 ### nwg-display
 
+Installation : 
+```bash
+sudo pacman -S nwg-displays
+```
+
+Et pour que ça fonctionne il faut enlever/ajouter dans la configuration Hyprland : 
+```bash
+#monitor=,preferred,auto,auto
+source = ~/.config/hypr/monitors.conf
+```
+
 ### Waybar
+
+Installation : 
+```bash
+paru waybar-cava
+```
+
+
 
 ### Hyprland
 
@@ -656,6 +710,8 @@ Utiliser rbw-rofi
 - unzip
 - fzf
 - npm
+- tldr
+- lazygit
 
 # Configurations dont je me suis inspiré
 

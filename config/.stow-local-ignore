@@ -1,0 +1,6 @@
+\.git
+misc
+#LICENSE
+^/.*\.org
+
+stow.sh
