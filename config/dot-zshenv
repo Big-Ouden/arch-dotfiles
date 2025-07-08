@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+export PATH=$HOME/.config/custom_scripts:$PATH
+
 ###############################
 # EXPORT ENVIRONMENT VARIABLE #
 ###############################
@@ -30,4 +32,3 @@ export MANPAGER='nvim +Man!'
 
 # PATH
 
-export PATH=~/arch-dotfiles/config/dot-config/custom_scripts:$PATH
