@@ -47,50 +47,50 @@ Utilisation de devcontainers et Distrobox (ou équivalents) pour layered des app
 |:--:|:--:|:--:|
 | Kernel                  |   Default Arch Kernel + installer Linux-zen après (pour les paquets virtual box par ex) | x |
 | Display server          |   wayland | x |
-| Display/login manager   |   sddm | ~ |
-| Bootmenu                |   Grub | ~ |
+| Display/login manager   |   sddm | x |
+| Bootmenu                |   Grub | x |
 | Window manager          |   Hyprland | x |
 | AUR Helper              |   Paru | x |
-| shell                   |   bash (oui, plus de zsh !) | |
-| Prompt                  |   Starship | |
-| terminal                |   kitty | |
-| Top bar                 |   waybar | |
+| shell                   |   zsh | x |
+| Prompt                  |   Starship | x |
+| terminal                |   kitty | x |
+| Top bar                 |   waybar | x |
 | Notification Daemno     |   dunst | |
 | Launcher                |   ~~fuzzel~~ Rofi finalement  | |
-| File manager (tui)      |   yazi | |
-| File manager (gui)      |   nemo | |
-| File manager plugins    |   nemo-fileroller, nemo-terminal | |
+| File manager (tui)      |   yazi | x |
+| File manager (gui)      |   ~~nemo~~ dolphin | |
+~~| File manager plugins    |   nemo-fileroller, nemo-terminal | |~~
 | Font                    |   la font de Zel, Iosevka Nerd Font | |
 | Editor                  |   Neovim - vim - Helix | |
-| IDE                     |   Vscode (telemetry disabled) | |
+| IDE                     |   Vscode (telemetry disabled) | x |
 | Dotfile manager         |   Stow | |
 | Terminal multiplexer    |   Tmux (yen a vraiment d'autres ?) | |
 | Zoom                    |   hypr-zoom | x |
 | Simple X11 menu         |   jgmenu | |
-| Network Manager         |   Network Manager, network-manager-applet (pour waybar) | |
+| Network Manager         |   Network Manager, network-manager-applet (pour waybar) | x |
 | Bluetooth manager       |   blueman, blueman-applet (pour waybar) | |
-| Screenshoter            |   Hyprshot | |
+| Screenshoter            |   Hyprshot | x |
 | Clipboard manager       |   clipse | |
 | GTK3 settings editor    |   nwg-look | |
-| Monitor manager         |   nwg-displays | |
-| Wallpaper manager       |   hyprpaper | ~ |
-| Color picker            |   hyprpicker  | |
-| Lockscreen              |   hyprlock | |
-| Discord                 |   Vesktop | |
+| Monitor manager         |   nwg-displays | x |
+| Wallpaper manager       |   hyprpaper | x |
+| Color picker            |   hyprpicker  | x |
+| Lockscreen              |   hyprlock | x |
+| Discord                 |   Vesktop | x |
 | Discord (web)           |   Webcord | |
 | Cursor                  |   Hyprcursor | |
 | Theme switcher          |   [https://github.com/Petingoso/dotfiles - dotfiles/dot_local/bin/executable_theme_changer_WL] | |
 | bluelight filter + shader manager   |   hyprshade    | |
-| Browser                 |   Firefox, python-pywalfox, python-pywal (firefox and auto firefox theming), librewolf | |
-| Password manager        |   bitwarden | |
-| System fetch            |   Neofetch, macchina | |
-| Pdf viewer              |   Zathura | |
+| Browser                 |   Firefox, python-pywalfox, python-pywal (firefox and auto firefox theming), librewolf | x |
+| Password manager        |   bitwarden | x |
+| System fetch            |   Neofetch, macchina | x |
+| Pdf viewer              |   Zathura | x |
 | sound and brightness    |   playerctl, light ?? | |
-| Video player            |   mpv | |
-| Image viewer            |   qView | |
+| Video player            |   mpv | x |
+| Image viewer            |   ~~qView~~ imv | |
 | Calculator              |   Rofi-calc | |
 | Report editor           |   Latex (devcontainers), Typst (devcontainer too ??) | |
-| VPN                     |   OpenVPN, wireguard | |
+| VPN                     |   OpenVPN, wireguard | x |
 
 Application à installer:
 syncthing
@@ -600,14 +600,6 @@ voir hyprshotgui et hyprshotgun (cloud)
 paru hyprshot-git
 ```
 
-### Hyprpaper
-(faire les script => section déjà commencée plus haut)
-
-```bash
-paru hyprpaper
-```
-
-
 ### Hyprpicker
 
 ```bash
@@ -641,6 +633,59 @@ Utiliser rbw-rofi
 
 ### Wireguard 
 
+Télécharger un fichier de conf d'interface et le mettre dans `/etc/wireguard`. A partir de ce moment possibilité d'activer/désactiver le vpn avec wg-quick :
+```bash
+sudo systemctl stop wg-quick@$INTERFACE
+sudo systemctl start wg-quick@$INTERFACE
+```
+
+Script pour l'intégrer à waybar : 
+```bash
+#!/bin/bash
+
+INTERFACE="aicha"
+SERVICE="wg-quick@$INTERFACE"
+
+# Vérifie si le service est actif
+if systemctl is-active --quiet "$SERVICE"; then
+    echo "Interface $INTERFACE active, arrêt en cours..."
+    sudo systemctl stop "$SERVICE"
+else
+    echo "Interface $INTERFACE inactive, démarrage en cours..."
+    sudo systemctl start "$SERVICE"
+fi
+```
+
+Module waybar : 
+```json
+#config.jsonc
+"custom/vpn": {
+  "format": "{}",
+  "exec": "~/.config/waybar/scripts/vpn_toggle.sh status",
+  "interval": 1,
+  "on-click": "~/.config/waybar/scripts/vpn_toggle.sh toggle",
+  "return-type": "json",
+  "escape": false
+}
+```
+
+```bash
+/*style*/
+/* ================================ */
+/*             vpn                  */
+/* ================================ */
+#custom-vpn {
+  color: #8ec07c;
+}
+
+#custom-vpn.on {
+  color: #8ec07c;
+}
+
+#custom-vpn.off {
+  color: #ea6962;
+}
+```
 
 ### Blueman
 
@@ -703,6 +748,14 @@ paru waybar-cava
 |:--:|:--:|:--:|:--:|
 | splash	| enable rendering of the hyprland splash over the wallpaper |bool | false |
 
+### Zoxide
+```bash
+sudo pacman zoxide
+zoxide init zsh --cmd cd >> .config/zsh/.zshrc
+```
+
+Remplace la commande "cd"
+
 # Paquet supplémentaires
 
 - less
@@ -712,6 +765,8 @@ paru waybar-cava
 - npm
 - tldr
 - lazygit
+- fd
+- zoxide
 
 # Configurations dont je me suis inspiré
 
