@@ -7,11 +7,12 @@
   "margin-left" :8,
 
   "modules-left": [
-    "custom/wofi",
+    "custom/rofi",
     "sway/workspaces",
     "sway/window",
     "hyprland/workspaces",
     "tray",
+    "custom/vpn",
     "custom/date",
     //"hyprland/window",
     "clock"
@@ -30,9 +31,19 @@
     "battery",
   ],
 
-  "custom/wofi": {
+"custom/vpn": {
+  "format": "{}",
+  "exec": "~/.config/waybar/scripts/vpn_toggle.sh status",
+  "interval": 1,
+  "on-click": "~/.config/waybar/scripts/vpn_toggle.sh toggle",
+  "return-type": "json",
+  "escape": false
+},
+
+
+  "custom/rofi": {
 		"format": "<span >󰣇</span>",
-		"on-click": "wofi --show drun",
+		"on-click": "rofi -show drun",
     "on-click-right": "~/.config/custom_scripts/power.sh",
     "escape" : true,
     "tooltip" : false
@@ -200,6 +211,6 @@
     "interval":1,
   },
   "custom/date": {
-    "exec": "date '+%D'",
+    "exec": "date '+%d/%m/%y'",
   },
 }

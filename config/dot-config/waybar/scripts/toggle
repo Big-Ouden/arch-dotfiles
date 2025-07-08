@@ -1,0 +1,14 @@
+#!/bin/bash
+
+INTERFACE="aicha"
+SERVICE="wg-quick@$INTERFACE"
+
+# Vérifie si le service est actif
+if systemctl is-active --quiet "$SERVICE"; then
+    echo "Interface $INTERFACE active, arrêt en cours..."
+    sudo systemctl stop "$SERVICE"
+else
+    echo "Interface $INTERFACE inactive, démarrage en cours..."
+    sudo systemctl start "$SERVICE"
+fi
+

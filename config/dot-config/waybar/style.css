@@ -24,6 +24,7 @@ window#waybar.hidden {
 }
 
 #custom-rofi,
+#custom-vpn,
 #workspaces button,
 #workspaces button:hover,
 #workspaces button.visible,
@@ -66,6 +67,7 @@ window#waybar.hidden {
 #backlight,
 #custom-memory,
 #custom-date,
+#custom-vpn,
 #pulseaudio,
 #pulseaudio.muted,
 #battery,
@@ -224,3 +226,32 @@ window#waybar.hidden {
 #clock {
   color: #8ec07c;
 }
+
+/* ================================ */
+/*             vpn                  */
+/* ================================ */
+#custom-vpn {
+  color: #8ec07c;
+}
+
+#custom-vpn.on {
+  color: #8ec07c;
+}
+
+#custom-vpn.off {
+  color: #ea6962;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
