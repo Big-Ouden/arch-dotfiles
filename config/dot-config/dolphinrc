@@ -1,0 +1,19 @@
+MenuBar=Disabled
+
+[General]
+RememberOpenedTabs=false
+Version=202
+ViewPropsTimestamp=2025,6,7,0,46,33.49
+
+[InformationPanel]
+dateFormat=ShortFormat
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+
+[PreviewSettings]
+Plugins=appimagethumbnail,comicbookthumbnail,kraorathumbnail,opendocumentthumbnail,directorythumbnail,ebookthumbnail,windowsexethumbnail,audiothumbnail,cursorthumbnail,djvuthumbnail,gdk-pixbuf-thumbnailer,imagethumbnail,exrthumbnail,jpegthumbnail,windowsimagethumbnail,svgthumbnail
