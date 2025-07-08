@@ -128,7 +128,7 @@ alias hostname="hostnamectl hostname"
 alias untar="tar xvf"
 # Pour faire fonctionner clear / CTRL-L / les couleurs etc
 # Voir la doc : https://sw.kovidgoyal.net/kitty/faq/
-alias ssh="kitten ssh"
+alias ssh="TERM=xterm ssh"
 
 
 
