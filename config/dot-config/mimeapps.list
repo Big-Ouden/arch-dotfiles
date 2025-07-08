@@ -1,0 +1,74 @@
+[Default Applications]
+x-scheme-handler/discord=vesktop.desktop
+
+# Liens / HTML
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/ftp=firefox.desktop
+x-scheme-handler/chrome=firefox.desktop
+text/html=firefox.desktop
+application/x-extension-htm=firefox.desktop
+application/x-extension-html=firefox.desktop
+application/x-extension-shtml=firefox.desktop
+application/xhtml+xml=firefox.desktop
+application/x-extension-xhtml=firefox.desktop
+application/x-extension-xht=firefox.desktop
+
+# PDF / Livres
+application/pdf=zathura.desktop
+image/vnd.djvu=zathura.desktop
+
+# Texte
+text/plain=geany.desktop
+text/x-markdown=geany.desktop
+application/x-shellscript=geany.desktop
+text/x-java=geany.desktop
+inode/x-empty=geany.desktop
+text/x-tex=geany.desktop
+text/x-ruby=geany.desktop
+text/x-python=geany.desktop
+text/x-readme=geany.desktop
+application/x-ruby=geany.desktop
+text/rhtml=geany.desktop
+
+# Vidéo
+video/ogg=mpv.desktop
+video/x-msvideo=mpv.desktop
+video/quicktime=mpv.desktop
+video/webm=mpv.desktop
+video/x-flv=mpv.desktop
+video/mp4=mpv.desktop
+application/ogg=mpv.desktop
+application/x-flash-video=mpv.desktop
+
+image/jpeg=imv.desktop
+image/png=imv.desktop
+image/gif=imv.desktop
+image/bmp=imv.desktop
+image/webp=imv.desktop
+image/tiff=imv.desktop
+image/x-xbitmap=imv.desktop
+image/x-portable-pixmap=imv.desktop
+image/x-portable-bitmap=imv.desktop
+image/x-portable-graymap=imv.desktop
+
+
+# Audio
+audio/mpeg=mpv.desktop
+audio/x-flac=mpv.desktop
+audio/mp4=mpv.desktop
+
+[Added Associations]
+application/pdf=zathura.desktop;
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/ftp=firefox.desktop;
+x-scheme-handler/chrome=firefox.desktop;
+text/html=firefox.desktop;
+application/x-extension-htm=firefox.desktop;
+application/x-extension-html=firefox.desktop;
+application/x-extension-shtml=firefox.desktop;
+application/xhtml+xml=firefox.desktop;
+application/x-extension-xhtml=firefox.desktop;
+application/x-extension-xht=firefox.desktop;
+
