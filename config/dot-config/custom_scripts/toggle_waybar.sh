@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-SERVICE=".waybar-wrapped"
+SERVICE="waybar"
 
 if pgrep -x "$SERVICE" > /dev/null; then
     pkill -9 waybar
 else
-    runbg waybar
+    runbg.sh waybar
 fi
