@@ -135,3 +135,9 @@ alias ssh="TERM=xterm ssh"
 # +---------+
 # | scripts |
 # +---------+
+
+
+# +---------+
+# |  Open   |
+# +---------+
+alias open="xdg-open"

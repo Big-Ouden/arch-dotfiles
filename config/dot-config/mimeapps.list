@@ -41,16 +41,16 @@ video/mp4=mpv.desktop
 application/ogg=mpv.desktop
 application/x-flash-video=mpv.desktop
 
-image/jpeg=imv.desktop
-image/png=imv.desktop
-image/gif=imv.desktop
-image/bmp=imv.desktop
-image/webp=imv.desktop
-image/tiff=imv.desktop
-image/x-xbitmap=imv.desktop
-image/x-portable-pixmap=imv.desktop
-image/x-portable-bitmap=imv.desktop
-image/x-portable-graymap=imv.desktop
+image/jpeg=qview.desktop
+image/png=qview.desktop
+image/gif=qview.desktop
+image/bmp=qview.desktop
+image/webp=qview.desktop
+image/tiff=qview.desktop
+image/x-xbitmap=qview.desktop
+image/x-portable-pixmap=qview.desktop
+image/x-portable-bitmap=qview.desktop
+image/x-portable-graymap=qview.desktop
 
 
 # Audio
