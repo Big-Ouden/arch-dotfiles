@@ -87,7 +87,7 @@ Utilisation de devcontainers et Distrobox (ou équivalents) pour layered des app
 | Pdf viewer              |   Zathura | x |
 | sound and brightness    |   playerctl, light ?? | |
 | Video player            |   mpv | x |
-| Image viewer            |   ~~qView~~ imv | |
+| Image viewer            |   qView, imv | |
 | Calculator              |   Rofi-calc | |
 | Report editor           |   Latex (devcontainers), Typst (devcontainer too ??) | |
 | VPN                     |   OpenVPN, wireguard | x |
