@@ -33,5 +33,5 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
-
+-- [[ Plugins ]]
 require("plugins")
