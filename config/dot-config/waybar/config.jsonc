@@ -44,7 +44,7 @@
   "custom/rofi": {
 		"format": "<span >󰣇</span>",
 		"on-click": "rofi -show drun",
-    "on-click-right": "~/.config/custom_scripts/power.sh",
+    "on-click-right": "~/.config/custom-scripts/power.sh",
     "escape" : true,
     "tooltip" : false
 	},
@@ -136,7 +136,7 @@
   },
 
   "custom/memory": {
-    "exec": "~/.config/custom_scripts/memory_usage.sh",
+    "exec": "~/.config/custom-scripts/memory_usage.sh",
     "on-click":"hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty btop'",
     "interval": 2,
     "return-type": "json",

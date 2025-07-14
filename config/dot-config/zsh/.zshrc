@@ -129,7 +129,7 @@ export STARSHIP_CACHE=~/.config/starship/cache
 
 
 ## PATH
-export PATH=$HOME/.config/custom_scripts:$PATH
+export PATH=$HOME/.config/custom-scripts:$PATH
 
 
 export PATH=$HOME/.local/bin:$PATH
