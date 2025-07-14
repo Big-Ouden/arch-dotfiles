@@ -5,4 +5,10 @@ return {
     "Almo7aya/neogruvbox.nvim",
     "catppuccin/vim",
     "catppuccin/nvim",
+    "nordtheme/vim",
+    "shaunsingh/nord.nvim",
+    "AlexvZyl/nordic.nvim",
+    "pappasam/papercolor-theme-slim",
+    "chitalu/vim-papercolor-theme",
+    "mohvn/peachpuff-legacy",
 }

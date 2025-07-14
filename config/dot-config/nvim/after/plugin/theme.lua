@@ -1,1 +1,1 @@
-vim.cmd("colorscheme gruvbox-baby")
+vim.cmd("colorscheme gruvbox-pale")
