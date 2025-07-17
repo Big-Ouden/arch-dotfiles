@@ -19,17 +19,18 @@ application/pdf=zathura.desktop
 image/vnd.djvu=zathura.desktop
 
 # Texte
-text/plain=geany.desktop
-text/x-markdown=geany.desktop
-application/x-shellscript=geany.desktop
-text/x-java=geany.desktop
-inode/x-empty=geany.desktop
-text/x-tex=geany.desktop
-text/x-ruby=geany.desktop
-text/x-python=geany.desktop
-text/x-readme=geany.desktop
-application/x-ruby=geany.desktop
-text/rhtml=geany.desktop
+text/plain=neovim.desktop
+text/x-markdown=neovim.desktop
+text/markdown=neovim.desktop
+application/x-shellscript=neovim.desktop
+text/x-java=neovim.desktop
+inode/x-empty=neovim.desktop
+text/x-tex=neovim.desktop
+text/x-ruby=neovim.desktop
+text/x-python=neovim.desktop
+text/x-readme=neovim.desktop
+application/x-ruby=neovim.desktop
+text/rhtml=neovim.desktop
 
 # Vidéo
 video/ogg=mpv.desktop
@@ -42,6 +43,7 @@ application/ogg=mpv.desktop
 application/x-flash-video=mpv.desktop
 
 image/jpeg=qview.desktop
+image/jpg=qview.desktop
 image/png=qview.desktop
 image/gif=qview.desktop
 image/bmp=qview.desktop
