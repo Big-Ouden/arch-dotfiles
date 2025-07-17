@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+# Fonction pour afficher l'aide
+show_help() {
+    cat << EOF
+Usage: wallpaper_menu [DIRECTORY] [OPTIONS]
+Change le wallpaper en utilisant une image sélectionnée via rofi.
+Arguments:
+  DIRECTORY   Le répertoire contenant les images à choisir. Par défaut, utilise le répertoire courant ou $XDG_PICTURES_DIR.
+Options:
+  -h, --help  Affiche ce message d'aide et quitte.
+Description:
+  Après avoir sélectionné une image, vous pouvez choisir de la définir comme :
+  - Desktop : Fond d'écran du bureau
+  - Login : Fond d'écran de connexion
+  - Both : Les deux à la fois
+Exemples:
+  wallpaper_menu
+  wallpaper_menu ~/Images
+  wallpaper_menu --help
+EOF
+}
+
+# Vérifier si l'option d'aide est passée
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    show_help
+    exit 0
+fi
+
+# Fonction pour lister les fichiers et dossiers
+list_files_and_dirs() {
+    local current_folder="$1"
+    cd "$current_folder" || exit
+
+    # Ajouter ".." pour remonter d'un niveau
+    echo -en "..\0icon\x1f../\n"
+
+    # Lister les dossiers
+    find . -maxdepth 1 -type d ! -path . | sed 's|./||' | while read -r dir; do
+        echo -en "$dir/\0icon\x1f$dir\n"
+    done
+
+    # Lister les fichiers images
+    find . -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | sed 's|./||' | while read -r file; do
+        echo -en "$file\0icon\x1f$file\n"
+    done
+}
+
+# Fonction pour gérer la navigation et la sélection
+navigate_and_select() {
+    local current_folder="$1"
+    local selection
+    while true; do
+        selection=$(list_files_and_dirs "$current_folder" | rofi -dmenu -theme-str 'window {width: 50%;} listview {columns: 1;}' -show-icons -p "Wallpaper ")
+
+        if [[ -z "$selection" ]]; then
+            echo "Aucune sélection."
+            exit 0
+        fi
+
+        if [[ "$selection" == ".." ]]; then
+            current_folder="$(dirname "$current_folder")"
+        elif [[ -d "$current_folder/$selection" ]]; then
+            current_folder="$current_folder/$selection"
+        else
+            break
+        fi
+    done
+
+    echo "Image sélectionnée: $selection"
+
+    # Utiliser rofi pour choisir l'action à effectuer
+    action=$(printf "Desktop\nLogin\nBoth\nCancel" | rofi -dmenu -p "Set as:")
+
+    case "$action" in
+        Desktop)
+            echo "Setting as desktop wallpaper"
+            change_wallpaper "$current_folder/$selection"
+            ;;
+        Login)
+            echo "Setting as login wallpaper"
+            change_wallpaper --login "$current_folder/$selection"
+            ;;
+        Both)
+            echo "Setting as both desktop and login wallpaper"
+            change_wallpaper "$current_folder/$selection"
+            change_wallpaper --login "$current_folder/$selection"
+            ;;
+        *)
+            echo "Action cancelled"
+            ;;
+    esac
+}
+
+# Déterminer le dossier courant
+if [ ! -d "$1" ]; then
+    if [ -d "$XDG_PICTURES_DIR" ]; then
+        current_folder="$XDG_PICTURES_DIR"
+    else
+        current_folder=$(pwd)
+    fi
+else
+    current_folder="$1"
+fi
+
+# Démarrer la navigation et la sélection
+navigate_and_select "$current_folder"
+
