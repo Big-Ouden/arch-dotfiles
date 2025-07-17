@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Script de démarrage pour le wallpaper avec mode random ou non
+
+# Chemin vers le script change_wallpaper
+CHANGE_WALLPAPER_SCRIPT="$DOTFILES/custom-scripts/change_wallpaper"
+
+# Vérifier si le mode random est configuré
+if [[ -f "$DOTFILES/wallpapers/.random_config" ]]; then
+    # Charger un wallpaper aléatoire
+    if [[ -x "$CHANGE_WALLPAPER_SCRIPT" ]]; then
+        "$CHANGE_WALLPAPER_SCRIPT" --load-random
+    else
+        echo "Erreur: Le script change_wallpaper n'est pas exécutable." >&2
+        exit 1
+    fi
+else
+		echo "lancement hyprpaper en mode normal"
+    # Fallback : juste lancer hyprpaper avec la config existante
+    if command -v hyprpaper >/dev/null 2>&1; then
+        if command -v runbg >/dev/null 2>&1; then
+            runbg hyprpaper
+        else
+            hyprpaper &
+        fi
+    else
+        echo "Erreur: hyprpaper n'est pas installé." >&2
+        exit 1
+    fi
+fi
+
