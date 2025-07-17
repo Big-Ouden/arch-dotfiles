@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [ ! -f help.txt ] ; then
+	echo "No help available"
+	exit 1;
+fi
+if [ $# -eq 0 ]; then
+	man -l help.txt
+	exit 0;
+fi
+
+if [ $1 = "raw" ]; then
+	cat help.txt
+	exit 0;
+fi
+
+exit 1;
