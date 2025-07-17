@@ -1,0 +1,454 @@
+#!/usr/bin/env bash
+
+#######################################
+# Configuration
+#######################################
+CONFIG_FILE="$DOTFILES/hypr/hyprpaper.conf"
+WALLPAPER_DIR="$DOTFILES/wallpapers"
+RANDOM_CONFIG_FILE="$WALLPAPER_DIR/.random_config"
+SUPPORTED_FORMATS=("jpg" "jpeg" "png" "webp" "bmp" "tiff" "gif")
+
+# Options par défaut
+DEFAULT_IPC="off"
+DEFAULT_SPLASH="off"
+
+#######################################
+# Fonctions utilitaires
+#######################################
+
+# Vérifie si un fichier a une extension d'image supportée
+is_image_file() {
+    local file="$1"
+    local extension="${file##*.}"
+    extension="${extension,,}" # Convertir en minuscules
+    for format in "${SUPPORTED_FORMATS[@]}"; do
+        if [[ "$extension" == "$format" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Trouve toutes les images dans un dossier
+find_images_in_folder() {
+    local folder="$1"
+    local images=()
+    while IFS= read -r -d '' file; do
+        if [[ "$(basename "$file")" == current_wallpaper.* ]]; then
+            continue  # Ne pas prendre current_wallpaper.*
+        fi
+        if is_image_file "$file"; then
+            images+=("$file")
+        fi
+    done < <(find "$folder" -type f -print0)
+    if [[ ${#images[@]} -eq 0 ]]; then
+        echo "Erreur: Aucune image trouvée dans le dossier $folder" >&2
+        return 1
+    fi
+    # Retourner une image aléatoire
+    echo "${images[RANDOM % ${#images[@]}]}"
+}
+
+# Convertit un chemin relatif en chemin absolu
+get_absolute_path() {
+    local path="$1"
+    if [[ "$path" = /* ]]; then
+        # Chemin déjà absolu
+        echo "$path"
+    else
+        # Chemin relatif, le convertir en absolu
+        echo "$(cd "$(dirname "$path")" && pwd)/$(basename "$path")"
+    fi
+}
+
+# Copie un fichier dans le dossier wallpapers avec un nom fixe
+copy_to_wallpaper_dir() {
+    local source_path="$1"
+    local extension="${source_path##*.}"
+    local destination="$WALLPAPER_DIR/current_wallpaper.$extension"
+
+    # Créer le dossier s'il n'existe pas
+    mkdir -p "$WALLPAPER_DIR"
+
+    # Supprimer tous les anciens fichiers current_wallpaper.* avant d'en créer un nouveau
+    find "$WALLPAPER_DIR/" -maxdepth 1 -type f -name "current_wallpaper.*" -exec rm -v {} \; > /dev/null
+    # Si le fichier existe déjà et est identique, ne pas le copier
+    if [[ -f "$destination" ]] && cmp -s "$source_path" "$destination"; then
+        echo "$destination"
+        return 0
+    fi
+    # Copier le fichier (écrase automatiquement l'ancien)
+    if cp "$source_path" "$destination"; then
+        echo "$destination"
+        return 0
+    else
+        echo "Erreur: Impossible de copier $source_path vers $destination" >&2
+        return 1
+    fi
+}
+
+# Copie un fichier dans le dossier wallpapers avec le nom login_wallpaper
+copy_login_wallpaper() {
+    local source_path="$1"
+    local destination="$WALLPAPER_DIR/login_wallpaper"
+    # Créer le dossier s'il n'existe pas
+    mkdir -p "$WALLPAPER_DIR"
+    # Si le fichier existe déjà et est identique, ne pas le copier
+    if [[ -f "$destination" ]] && cmp -s "$source_path" "$destination"; then
+        echo "$destination"
+        return 0
+    fi
+    # Copier le fichier (écrase automatiquement l'ancien)
+    if cp "$source_path" "$destination"; then
+        echo "$destination"
+        return 0
+    else
+        echo "Erreur: Impossible de copier $source_path vers $destination" >&2
+        return 1
+    fi
+}
+
+# Copie tous les fichiers images d'un dossier dans le dossier wallpapers
+copy_folder_to_wallpaper_dir() {
+    local source_folder="$1"
+    local folder_name=$(basename "$source_folder")
+    local destination_folder="$WALLPAPER_DIR/random_wall_bank"
+    # Créer le dossier de destination
+    mkdir -p "$destination_folder"
+    local copied_files=()
+    # Copier tous les fichiers images
+    while IFS= read -r -d '' file; do
+        if is_image_file "$file"; then
+            local filename=$(basename "$file")
+            local destination="$destination_folder/$filename"
+            # Copier seulement si le fichier n'existe pas ou est différent
+            if [[ ! -f "$destination" ]] || ! cmp -s "$file" "$destination"; then
+                if cp "$file" "$destination"; then
+                    copied_files+=("$destination")
+                fi
+            else
+                copied_files+=("$destination")
+            fi
+        fi
+    done < <(find "$source_folder" -type f -print0)
+    if [[ ${#copied_files[@]} -eq 0 ]]; then
+        echo "Erreur: Aucune image copiée depuis $source_folder" >&2
+        return 1
+    fi
+    echo "$destination_folder"
+}
+
+# Génère le fichier de configuration hyprpaper
+generate_config() {
+    local image_path="$1"
+    local ipc_setting="${2:-$DEFAULT_IPC}"
+    local splash_setting="${3:-$DEFAULT_SPLASH}"
+    cat > "$CONFIG_FILE" << EOF
+# This file is generated automatically by change_wallpaper script.
+preload = $image_path
+wallpaper = ,$image_path
+# Enable splash text rendering over the wallpaper
+splash = $splash_setting
+# IPC setting
+ipc = $ipc_setting
+EOF
+}
+
+# Sauvegarde un fichier pour signifier que la config est en mode random
+save_random_config() {
+    cat > "$RANDOM_CONFIG_FILE" << EOF
+    # This file specified that hyprpaper is in random mode
+EOF
+}
+
+# Charge un wallpaper aléatoire depuis la configuration sauvegardée
+load_random_wallpaper() {
+    if [[ ! -f "$RANDOM_CONFIG_FILE" ]]; then
+        echo "Erreur: Aucune configuration random trouvée" >&2
+        echo "Utilisez d'abord --random ou -r pour configurer un dossier" >&2
+        return 1
+    fi
+    # Supprimer tous les anciens current_wallpaper.*
+    find "$WALLPAPER_DIR/" -maxdepth 1 -type f -name "current_wallpaper.*" -exec rm {} \;
+    local random_image=$(find_images_in_folder "$WALLPAPER_DIR/")
+    if [[ $? -ne 0 ]]; then
+        return 1
+    fi
+    # Copier l'image sélectionnée avec un nom fixe
+    local extension="${random_image##*.}"
+    local current_wallpaper="$WALLPAPER_DIR/current_wallpaper.$extension"
+    # Copier avec le nom fixe (écrase l'ancien)
+    if ! cp "$random_image" "$current_wallpaper"; then
+        echo "Erreur: Impossible de copier l'image sélectionnée" >&2
+        return 1
+    fi
+    generate_config "$current_wallpaper" "$IPC_SETTING" "$SPLASH_SETTING"
+    restart_hyprpaper
+    echo "Wallpaper aléatoire chargé: $(basename "$random_image")"
+}
+
+# Redémarre hyprpaper
+restart_hyprpaper() {
+    # Tuer hyprpaper s'il est en cours
+    if pgrep -x hyprpaper > /dev/null; then
+        pkill hyprpaper
+    fi
+    # Relancer hyprpaper en arrière-plan
+    if command -v runbg > /dev/null; then
+        runbg hyprpaper
+    else
+        hyprpaper &
+    fi
+}
+
+# Fonction principale pour changer le wallpaper
+change_wallpaper() {
+    local target="$1"
+    local ipc_setting="${2:-$DEFAULT_IPC}"
+    local splash_setting="${3:-$DEFAULT_SPLASH}"
+    local image_path=""
+    # Obtenir le chemin absolu
+    target=$(get_absolute_path "$target")
+    if [[ -f "$target" ]]; then
+        # C'est un fichier
+        if is_image_file "$target"; then
+            # Supprimer toutes les images existantes dans le dossier
+            find "$WALLPAPER_DIR/"   -not -name "login_wallpaper" -type f -exec rm -f {} \;
+            # Copier le fichier avec un nom fixe
+            image_path=$(copy_to_wallpaper_dir "$target")
+            if [[ $? -ne 0 ]]; then
+                return 1
+            fi
+        else
+            echo "Erreur: $target n'est pas un fichier image supporté" >&2
+            echo "Formats supportés: ${SUPPORTED_FORMATS[*]}" >&2
+            return 1
+        fi
+    elif [[ -d "$target" ]]; then
+        # C'est un dossier - choisir une image aléatoire puis la copier avec un nom fixe
+        local random_image=$(find_images_in_folder "$target")
+        if [[ $? -ne 0 ]]; then
+            return 1
+        fi
+        echo "Image sélectionnée: $(basename "$random_image")"
+        # Copier avec un nom fixe
+        image_path=$(copy_to_wallpaper_dir "$random_image")
+        if [[ $? -ne 0 ]]; then
+            return 1
+        fi
+    else
+        echo "Erreur: $target n'existe pas ou n'est ni un fichier ni un dossier" >&2
+        return 1
+    fi
+    # Générer la configuration et redémarrer hyprpaper
+    generate_config "$image_path" "$ipc_setting" "$splash_setting"
+    restart_hyprpaper
+    echo "Wallpaper changé avec succès: $(basename "$image_path")"
+}
+
+# Configure le mode random
+setup_random_wallpaper() {
+    local target="$1"
+    local ipc_setting="${2:-$DEFAULT_IPC}"
+    local splash_setting="${3:-$DEFAULT_SPLASH}"
+    # Obtenir le chemin absolu
+    target=$(get_absolute_path "$target")
+    if [[ ! -d "$target" ]]; then
+        echo "Erreur: $target n'est pas un dossier" >&2
+        return 1
+    fi
+    # Copier le dossier dans wallpapers
+    local copied_folder=$(copy_folder_to_wallpaper_dir "$target")
+    if [[ $? -ne 0 ]]; then
+        return 1
+    fi
+    # Sauvegarder la configuration
+    save_random_config "$copied_folder" "$ipc_setting" "$splash_setting"
+    # Charger un wallpaper aléatoire immédiatement
+    load_random_wallpaper
+    echo "Mode random configuré pour le dossier: $(basename "$copied_folder")"
+}
+
+# Configure le wallpaper de login
+setup_login_wallpaper() {
+    local target="$1"
+    # Obtenir le chemin absolu
+    target=$(get_absolute_path "$target")
+    if [[ -f "$target" ]]; then
+        # C'est un fichier
+        if is_image_file "$target"; then
+            # Copier le fichier avec le nom login_wallpaper
+            local image_path=$(copy_login_wallpaper "$target")
+            if [[ $? -ne 0 ]]; then
+                return 1
+            fi
+            echo "Wallpaper de login configuré avec succès: $(basename "$image_path")"
+        else
+            echo "Erreur: $target n'est pas un fichier image supporté" >&2
+            echo "Formats supportés: ${SUPPORTED_FORMATS[*]}" >&2
+            return 1
+        fi
+    elif [[ -d "$target" ]]; then
+        # C'est un dossier - choisir une image aléatoire puis la copier avec le nom login_wallpaper
+        local random_image=$(find_images_in_folder "$target")
+        if [[ $? -ne 0 ]]; then
+            return 1
+        fi
+        echo "Image sélectionnée: $(basename "$random_image")"
+        # Copier avec le nom login_wallpaper
+        local image_path=$(copy_login_wallpaper "$random_image")
+        if [[ $? -ne 0 ]]; then
+            return 1
+        fi
+        echo "Wallpaper de login configuré avec succès: $(basename "$image_path")"
+    else
+        echo "Erreur: $target n'existe pas ou n'est ni un fichier ni un dossier" >&2
+        return 1
+    fi
+}
+
+#######################################
+# Aide
+#######################################
+show_help() {
+    cat << EOF
+Change wallpaper script usage:
+Basic usage:
+  change_wallpaper <image_file>              | Change current wallpaper to specified image
+  change_wallpaper <folder>                  | Pick a random image in the folder and use it as wallpaper
+Options:
+  --ipc=on|off                              | Enable or disable IPC (default: $DEFAULT_IPC)
+  --splash=true|false                       | Enable or disable splash text (default: $DEFAULT_SPLASH)
+  --random <folder>, -r <folder>            | Setup random wallpaper from folder (copies all images for rotation)
+  --load-random                             | Load a new random wallpaper from configured folder
+  --login <image>, -l <image>               | Set the specified image as login wallpaper
+  --login <folder>, -l <folder>             | Pick a random image from the folder and set it as login wallpaper
+  -h, --help                                | Show this help
+Supported image formats: ${SUPPORTED_FORMATS[*]}
+Examples:
+  change_wallpaper ~/Pictures/my_wallpaper.jpg    # Use this specific image
+  change_wallpaper ./wallpapers/                  # Pick random image from folder
+  change_wallpaper --random ~/Pictures/walls/     # Copy entire folder for random rotation
+  change_wallpaper -r ./backgrounds/ --ipc=on     # Setup random with custom options
+  change_wallpaper --load-random                  # Load new random from configured folder
+  change_wallpaper --login ~/Pictures/login.jpg   # Set login wallpaper
+  change_wallpaper -l ~/Pictures/                 # Pick random image from folder and set as login wallpaper
+Note:
+- All wallpapers are saved as 'current_wallpaper.{ext}' in $WALLPAPER_DIR (no accumulation)
+- Random mode copies all images from the folder for rotation
+- Single files and folder mode replace the current wallpaper file
+EOF
+}
+
+#######################################
+# Parsing des arguments
+#######################################
+parse_arguments() {
+    local ipc_setting="$DEFAULT_IPC"
+    local splash_setting="$DEFAULT_SPLASH"
+    local random_mode=false
+    local load_random_mode=false
+    local login_mode=false
+    local target=""
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --ipc=*)
+                ipc_setting="${1#*=}"
+                if [[ "$ipc_setting" != "on" && "$ipc_setting" != "off" ]]; then
+                    echo "Erreur: --ipc doit être 'on' ou 'off'" >&2
+                    return 1
+                fi
+                shift
+                ;;
+            --splash=*)
+                splash_setting="${1#*=}"
+                if [[ "$splash_setting" != "true" && "$splash_setting" != "false" ]]; then
+                    echo "Erreur: --splash doit être 'true' ou 'false'" >&2
+                    return 1
+                fi
+                shift
+                ;;
+            --random|-r)
+                random_mode=true
+                shift
+                if [[ $# -gt 0 && "$1" != -* ]]; then
+                    target="$1"
+                    shift
+                else
+                    echo "Erreur: --random/-r nécessite un dossier" >&2
+                    return 1
+                fi
+                ;;
+            --login|-l)
+                login_mode=true
+                shift
+                if [[ $# -gt 0 && "$1" != -* ]]; then
+                    target="$1"
+                    shift
+                else
+                    echo "Erreur: --login/-l nécessite un fichier ou un dossier" >&2
+                    return 1
+                fi
+                ;;
+            --load-random)
+                load_random_mode=true
+                shift
+                ;;
+            -h|--help)
+                show_help
+                return 0
+                ;;
+            -*)
+                echo "Erreur: Option inconnue $1" >&2
+                show_help
+                return 1
+                ;;
+            *)
+                if [[ -z "$target" ]]; then
+                    target="$1"
+                else
+                    echo "Erreur: Trop d'arguments" >&2
+                    return 1
+                fi
+                shift
+                ;;
+        esac
+    done
+
+    # Exécuter l'action appropriée
+    if [[ "$load_random_mode" == true ]]; then
+        load_random_wallpaper
+    elif [[ "$random_mode" == true ]]; then
+        setup_random_wallpaper "$target" "$ipc_setting" "$splash_setting"
+    elif [[ "$login_mode" == true ]]; then
+        setup_login_wallpaper "$target"
+    elif [[ -n "$target" ]]; then
+        change_wallpaper "$target" "$ipc_setting" "$splash_setting"
+    else
+        echo "Erreur: Aucun fichier/dossier spécifié" >&2
+        show_help
+        return 1
+    fi
+}
+
+#######################################
+# Main
+#######################################
+main() {
+    # Vérifier que DOTFILES est défini
+    if [[ -z "$DOTFILES" ]]; then
+        echo "Erreur: La variable d'environnement DOTFILES n'est pas définie" >&2
+        return 1
+    fi
+    # Créer les dossiers nécessaires
+    mkdir -p "$(dirname "$CONFIG_FILE")"
+    mkdir -p "$WALLPAPER_DIR"
+    # Parser et exécuter les arguments
+    parse_arguments "$@"
+}
+
+# Exécuter le script seulement s'il est appelé directement
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
+
