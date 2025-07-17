@@ -136,7 +136,7 @@
   },
 
   "custom/memory": {
-    "exec": "~/.config/custom-scripts/memory_usage.sh",
+    "exec": "~/.config/custom-scripts/memory_usage",
     "on-click":"hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty btop'",
     "interval": 2,
     "return-type": "json",
