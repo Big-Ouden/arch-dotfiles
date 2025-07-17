@@ -49,7 +49,7 @@ require("lazy").setup({
 	require("plugins.java"),
 	require("plugins.nvim-dev-container"),
 	-- require("plugins.smear-cursor"),
-	require("plugins.scrollbar"),
+	-- require("plugins.scrollbar"),
 	require("plugins.lazygit"),
 	-- require("plugins.barbar"),
 	require("plugins.neaterm"),
