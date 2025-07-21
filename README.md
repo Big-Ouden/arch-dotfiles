@@ -1,9 +1,28 @@
-# arch-dotfiles
+<center>
+
+![banner](assets/banner.webp)
+
+My personal dotfiles managed with [stow](https://www.gnu.org/software/stow/)
+
+![GitHub repo size](https://img.shields.io/github/repo-size/Big-Ouden/arch-dotfiles?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/Big-Ouden/arch-dotfiles?style=for-the-badge)
+[![Static Badge](https://img.shields.io/badge/BLOG-HOW%20I%20MANAGE%20MY%20DOTFILES-yellow?style=for-the-badge)](https://belier.iiens.net)
 
 
-Le projet est peut être un peu fou mais l'objectif est de créer / assembler un os qui réponde exactement à mes besoins et qui soit léger en ressources en Idle et pour des opérations basiques.
+</center>
 
-# Mes besoins
+## Screenshots
+
+![First screen](assets/7.png)
+![Second screen](assets/4.png)
+![Second screen](assets/2.png)
+
+
+
+
+## Mes besoins
+
+Le projet est de créer / assembler un os qui réponde exactement à mes besoins et qui soit léger en ressources en Idle et pour des opérations basiques.
 
 **Ressources**
 Il faut que la consommation de batterie soit optimisé => il faut une utilisation des ressources (RAM,CPU,GPU..👀) qui soient minimes.
