@@ -7,6 +7,8 @@
 **/
 
 
+@import "colors.rasi"
+
 /**** -- Configuration -- ****/
 configuration {
 	modi:	"run,drun,filebrowser";
@@ -48,7 +50,7 @@ configuration {
 	/**** --  Run settings -- ****/
 	run-command: "{cmd}";
 	run-list-command: "";
-	run-shell-command: "{terminal} -e {cmd}";
+	run-shell-command: "kitty --hold {cmd}";
 
 	/**** --  Fallback icon -- ****/
 	run,drun {
@@ -82,7 +84,7 @@ configuration {
 
 		/**** -- filebrowser settings -- ****/
 	filebrowser {
-		/* directory: "/home"; */
+		directory: "/home/bigouden";
 	  directories-first: true;
 		sorting-method:    "name";
 	}
@@ -94,59 +96,14 @@ configuration {
 }
 
 /**** -- Global properties -- ****/
-*{
-	/* Theme settings */
-  highlight: bold italic;
-  scrollbar: true;
-
-  /* Gruvbox dark colors */
-  gruvbox-dark-bg0-soft:     #32302f;
-  gruvbox-dark-bg1:          #3c3836;
-  gruvbox-dark-bg3:          #665c54;
-  gruvbox-dark-fg0:          #fbf1c7;
-  gruvbox-dark-fg1:          #ebdbb2;
-  gruvbox-dark-red-dark:     #cc241d;
-  gruvbox-dark-red-light:    #fb4934;
-  gruvbox-dark-yellow-dark:  #d79921;
-  gruvbox-dark-yellow-light: #fabd2f;
-  gruvbox-dark-gray:         #a89984;
-
-	/* Theme colors */
-  background:                  @gruvbox-dark-bg0-soft;
-  background-color:            @background;
-  foreground:                  @gruvbox-dark-fg1;
-  border-color:                @gruvbox-dark-gray;
-  separatorcolor:              @border-color;
-  scrollbar-handle:            @border-color;
-
-  normal-background:           @background;
-  normal-foreground:           @foreground;
-  alternate-normal-background: @gruvbox-dark-bg1;
-  alternate-normal-foreground: @foreground;
-  selected-normal-background:  @gruvbox-dark-bg3;
-  selected-normal-foreground:  @gruvbox-dark-fg0;
-
-  active-background:           @gruvbox-dark-yellow-dark;
-  active-foreground:           @background;
-  alternate-active-background: @active-background;
-  alternate-active-foreground: @active-foreground;
-  selected-active-background:  @gruvbox-dark-yellow-light;
-  selected-active-foreground:  @active-foreground;
-
-  urgent-background:           @gruvbox-dark-red-dark;
-  urgent-foreground:           @background;
-  alternate-urgent-background: @urgent-background;
-  alternate-urgent-foreground: @urgent-foreground;
-  selected-urgent-background:  @gruvbox-dark-red-light;
-  selected-urgent-foreground:  @urgent-foreground;
-}
 
 
 /**** -- Main window -- ****/
 
 window {
 	background-color:	@background;
-	border:	2;
+	border:	1px solid;
+	border-color: @separatorcolor;
 	padding:	2;
 }
 
@@ -154,7 +111,9 @@ window {
 
 mainbox {
 	border:	0;
-	padding:	0;
+	// padding:	5px;
+	border: 1px solid;
+
 }
 
 /**** -- InputBar -- ****/
@@ -192,12 +151,12 @@ textbox-prompt-sep {
 listview {
 	enable:	true;
 	column:	1;
-	lines:	8;
-  border:       2px solid 0 0;
-  padding:      2px 0 0;
+	lines:	5;
+  border:       0px solid 0 0;
+  padding:      0px 0 0;
   border-color: @separatorcolor;
-  spacing:      2px;
-  scrollbar:    @scrollbar;
+  // scrollbar:    @scrollbar;
+	scrollbar: false;
 
 
 }
@@ -205,7 +164,7 @@ listview {
 /**** -- Elements -- ****/
 element {
     border:  0;
-    padding: 2px;
+    padding: 6px;
 }
 
 element.normal.normal {

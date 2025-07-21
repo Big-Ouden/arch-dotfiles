@@ -1,0 +1,93 @@
+/*****----- Global Properties -----*****/
+@import                          "../config.rasi"
+
+*{
+	scrollbar: false;
+	background-color: @normal-background;
+  text-color:       @normal-foreground;
+}
+
+selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+window {
+    location:                   center;
+    anchor:                     center;
+    fullscreen:                 false;
+    width:                      250px;
+}
+
+mainbox {
+    children:                   [ "message", "listview" ];
+}
+
+listview {
+    columns:                    2;
+    lines:                      1;
+}
+
+element-text {
+    horizontal-align:           0.5;
+    background-color: @background;
+    text-color:      @foreground;
+		padding:0px;
+}
+
+element-text.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element.normal.normal {
+    background-color: @background;
+    text-color:       @foreground;
+}
+
+element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+
+element.normal.active {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+
+element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element.selected.urgent {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element.selected.active {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element.alternate.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+
+element.alternate.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+
+element.alternate.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+
+
+textbox {
+    // border-color:                @normal-background;
+    horizontal-align:           0.5;
+		background-color: @background;
+}
