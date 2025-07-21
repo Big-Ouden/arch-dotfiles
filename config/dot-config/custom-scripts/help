@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+cd $DOTFILES/custom-scripts/
 if [ ! -f help.txt ] ; then
 	echo "No help available"
 	exit 1;
