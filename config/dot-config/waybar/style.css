@@ -47,6 +47,7 @@ window#waybar.hidden {
 #battery,
 #battery.critical,
 #battery.warning,
+#bluetooth,
 #clock {
   font-family: JetBrainsMono Nerd Font Propo;
   font-size: 12px;
@@ -194,6 +195,13 @@ window#waybar.hidden {
   color: #458588;
 }
 
+/* ================================ */
+/*             bluetooth            */
+/* ================================ */
+#bluetooth {
+  color: #458588;
+
+}
 
 /* ================================ */
 /*         pulseaudio               */
