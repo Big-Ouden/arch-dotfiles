@@ -132,7 +132,10 @@ export STARSHIP_CACHE=~/.config/starship/cache
 export PATH=$HOME/.config/custom-scripts:$PATH
 ## CUSTOM man
 export MANPATH=$HOME/man:$MANPATH
-
+# Cargo
+export PATH=/home/bigouden/.cargo/bin:$PATH
+# custom bin
+export PATH=/home/bigouden/bin:$PATH
 
 export PATH=$HOME/.local/bin:$PATH
 source /usr/share/nvm/init-nvm.sh
