@@ -8,8 +8,6 @@
 
   "modules-left": [
     "custom/rofi",
-    "sway/workspaces",
-    "sway/window",
     "hyprland/workspaces",
     "tray",
     "bluetooth",
@@ -102,7 +100,7 @@
   },
 
   "tray": {
-    "icon-size": 15,
+    "icon-size": 18,
     "spacing": 8
   },
 
