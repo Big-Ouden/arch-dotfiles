@@ -14,7 +14,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 --
 -- NOTE This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>:q<CR>", { desc = "Exit terminal mode" })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -101,3 +101,19 @@ end, { desc = "Toggle blockwise comment for selection" })
 -- Url view
 vim.keymap.set("n", "<leader>u", "<Cmd>UrlView<CR>", { desc = "View buffer URLs" })
 vim.keymap.set("n", "<leader>U", "<Cmd>UrlView Lazy<CR>", { desc = "View Lazy plugin URLs" })
+
+-- Toggleterm
+vim.keymap.set("n", "<leader>tt", "<Cmd>ToggleTerm<CR>", { desc = "Toggle Terminal Window" })
+vim.keymap.set(
+	"n",
+	"<leader>tv",
+	"<Cmd>ToggleTerm direction=vertical<CR>",
+	{ desc = "Toggle Vertical Terminal Window" }
+)
+vim.keymap.set(
+	"n",
+	"<leader>th",
+	"<Cmd>ToggleTerm direction=horizontal<CR>",
+	{ desc = "Toggle Horizontal Terminal Window" }
+)
+vim.keymap.set("n", "<leader>,", "<Cmd>ToggleTerm direction=float<CR>", { desc = "Toggle Floating Terminal Window" })

@@ -37,6 +37,12 @@ return {
 			python = { "isort", "black" },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			c = { "astyle" },
+			sh = { "beautysh" },
+			html = { "djlint" },
+			css = { "stylelint" },
+			yaml = { "yamlfix" },
+			md = { "cbfmt" },
+			typst = { "prettypst" },
 			-- Use the "*" filetype to run formatters on all filetypes.
 			["*"] = { "codespell" },
 			-- Use the "_" filetype to run formatters on filetypes that don't
