@@ -1,18 +1,17 @@
 #!/bin/bash
 
-INTERFACE="aicha"
-SERVICE="wg-quick@$INTERFACE"
+CONNECTION_ID="aicha"
 
 case "$1" in
   toggle)
-    if systemctl is-active --quiet "$SERVICE"; then
-      sudo /bin/systemctl stop "$SERVICE"
+    if nmcli -t -f NAME,TYPE con show --active | grep -q "^$CONNECTION_ID:.*"; then
+      nmcli con down id "$CONNECTION_ID"
     else
-      sudo /bin/systemctl start "$SERVICE"
+      nmcli con up id "$CONNECTION_ID"
     fi
     ;;
   status)
-    if systemctl is-active --quiet "$SERVICE"; then
+    if nmcli -t -f NAME,TYPE con show --active | grep -q "^$CONNECTION_ID:.*"; then
       echo '{"text":"● VPN", "class":"on"}'
     else
       echo '{"text":"● VPN", "class":"off"}'
