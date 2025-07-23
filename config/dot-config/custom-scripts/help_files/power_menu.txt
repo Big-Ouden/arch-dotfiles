@@ -1,0 +1,9 @@
+.TH POWER_MENU 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+power_menu \- Lance un menu Rofi pour les actions d’alimentation.
+.SH SYNOPSIS
+power_menu
+.SH DESCRIPTION
+Affiche un menu pour éteindre, redémarrer, etc., via rofi-power-menu.
+.SH AUTEUR
+BigOuden

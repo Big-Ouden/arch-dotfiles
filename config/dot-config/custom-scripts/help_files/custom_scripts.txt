@@ -1,0 +1,109 @@
+.TH MES_SCRIPTS 1 "Juillet 2025" "1.0" "Commandes Utilisateur"
+.SH NOM
+\fBmes_scripts\fP \- Aide pour les scripts personnalisés de l'environnement Hyprland
+
+.SH SYNOPSIS
+ascii
+.br
+change_wallpaper
+.br
+custom_scripts
+.br
+init_rapport.sh
+.br
+keybinds
+.br
+lofi
+.br
+memory_usage
+.br
+pacman-updates
+.br
+power_menu
+.br
+runbg
+.br
+start_hyprpaper
+.br
+toggle_float
+.br
+toggle_opacity
+.br
+toggle_waybar
+.br
+wallpaper_menu
+.br
+update_man
+
+.SH DESCRIPTION
+Cette page documente les scripts personnalisés situés dans le répertoire \fIcustom-scripts/\fP.
+
+.SH COMMANDES
+
+.TP
+\fBascii\fP
+Affiche la table ASCII au format lisible avec codes décimaux, hexadécimaux, et caractères.
+
+.TP
+\fBchange_wallpaper\fP
+Change le fond d'écran en mode direct, aléatoire ou login. Supporte des options comme \fB--ipc\fP, \fB--splash\fP, \fB--random\fP, \fB--login\fP. Voir \fBchange_wallpaper -h\fP pour tous les détails.
+
+.TP
+\fBcustom_scripts\fP
+Affiche ce fichier d'aide. Utiliser `custom_scripts raw` pour afficher le texte brut. Si aucun argument, affiche avec `man`.
+
+.TP
+\fBinit_rapport.sh\fP
+Initialise un dossier de rapport à partir d’un template Git. Syntaxe : \fBinit_rapport.sh <nom_dossier> <template> [--repo <url>]\fP.
+
+.TP
+\fBkeybinds\fP
+Affiche les raccourcis clavier définis dans Hyprland via Rofi.
+
+.TP
+\fBlofi\fP
+Active/désactive la lecture de la musique \fBlofi.wav\fP via MPV. Sert de bouton bascule.
+
+.TP
+\fBmemory_usage\fP
+Affiche l'utilisation de la mémoire RAM au format JSON, compatible avec Waybar.
+
+.TP
+\fBpacman-updates\fP
+Script pour Waybar : affiche le nombre de mises à jour disponibles via \fBcheckupdates\fP.
+
+.TP
+\fBpower_menu\fP
+Ouvre un menu de gestion de l'alimentation via rofi-power-menu (shutdown, reboot, etc).
+
+.TP
+\fBrunbg\fP
+Lance une commande en arrière-plan proprement : \fBrunbg <commande>\fP.
+
+.TP
+\fBstart_hyprpaper\fP
+Script de démarrage pour Hyprpaper. Lance soit en mode normal, soit en mode fond d'écran aléatoire si configuré.
+
+.TP
+\fBtoggle_float\fP
+Toggle le mode flottant pour la fenêtre active et la redimensionne à 900x600 centrée.
+
+.TP
+\fBtoggle_opacity\fP
+Active ou désactive l’opacité configurée via Hyprctl (0.95/0.80 ou 1.0).
+
+.TP
+\fBtoggle_waybar\fP
+Lance ou arrête Waybar (barre système pour Wayland).
+
+.TP
+\fBwallpaper_menu\fP
+Menu Rofi interactif permettant de choisir un fond d'écran depuis un dossier (navigation incluse) et l’appliquer au bureau, au login, ou aux deux.
+
+.TP
+\fupdate_manfP
+Script permettant d'update les pages de man custom par rapport aux pages de man dans $DOTFILES/custom-scripts/help_files.
+
+.SH AUTEUR
+BigOuden <contact@bigouden.org>
+

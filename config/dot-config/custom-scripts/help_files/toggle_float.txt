@@ -1,0 +1,9 @@
+.TH TOGGLE_FLOAT 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+toggle_float \- Active ou désactive le mode flottant.
+.SH SYNOPSIS
+toggle_float
+.SH DESCRIPTION
+Passe la fenêtre active en mode flottant, redimensionne et centre.
+.SH AUTEUR
+BigOuden

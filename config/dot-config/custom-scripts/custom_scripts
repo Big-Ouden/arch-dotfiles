@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 cd $DOTFILES/custom-scripts/help_files/
-if [ ! -fhelp.txt ] ; then
+if [ ! -f custom_scripts.txt ] ; then
 	echo "No help available"
 	exit 1;
 fi
 if [ $# -eq 0 ]; then
-	man -l help.txt
+	man -l custom_scripts.txt
 	exit 0;
 fi
 
 if [ $1 = "raw" ]; then
-	cat help.txt
+	cat custom_scripts.txt
 	exit 0;
 fi
 

@@ -1,0 +1,9 @@
+.TH PACMAN-UPDATES 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+pacman-updates \- Vérifie les mises à jour disponibles pour Pacman.
+.SH SYNOPSIS
+pacman-updates
+.SH DESCRIPTION
+Utilisé dans Waybar pour indiquer le nombre de paquets à mettre à jour.
+.SH AUTEUR
+BigOuden

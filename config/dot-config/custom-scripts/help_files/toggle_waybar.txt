@@ -1,0 +1,9 @@
+.TH TOGGLE_WAYBAR 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+toggle_waybar \- Lance ou stoppe Waybar.
+.SH SYNOPSIS
+toggle_waybar
+.SH DESCRIPTION
+Active ou désactive Waybar à l’aide de pkill/runbg.
+.SH AUTEUR
+BigOuden

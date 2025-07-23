@@ -1,0 +1,9 @@
+.TH INIT_RAPPORT.SH 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+init_rapport.sh \- Initialise un dossier de rapport à partir d’un template Git.
+.SH SYNOPSIS
+init_rapport.sh <nom_dossier> <template> [--repo <url_git>]
+.SH DESCRIPTION
+Clone un dépôt et initialise un rapport selon un template.
+.SH AUTEUR
+BigOuden

@@ -1,0 +1,9 @@
+.TH LOFI 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+lofi \- Joue ou stoppe une piste lofi.wav via MPV.
+.SH SYNOPSIS
+lofi
+.SH DESCRIPTION
+Script toggle pour lancer ou arrêter la lecture de lofi.wav.
+.SH AUTEUR
+BigOuden

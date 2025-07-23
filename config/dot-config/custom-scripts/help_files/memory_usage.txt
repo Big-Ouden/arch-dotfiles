@@ -1,0 +1,9 @@
+.TH MEMORY_USAGE 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+memory_usage \- Affiche l’usage mémoire en JSON pour Waybar.
+.SH SYNOPSIS
+memory_usage
+.SH DESCRIPTION
+Retourne une chaîne JSON avec la mémoire utilisée.
+.SH AUTEUR
+BigOuden

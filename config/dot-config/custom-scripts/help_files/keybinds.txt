@@ -1,0 +1,9 @@
+.TH KEYBINDS 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+keybinds \- Affiche les raccourcis Hyprland via rofi.
+.SH SYNOPSIS
+keybinds
+.SH DESCRIPTION
+Affiche les raccourcis clavier définis dans Hyprland à l’aide d’un menu Rofi.
+.SH AUTEUR
+BigOuden

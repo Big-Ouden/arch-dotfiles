@@ -1,0 +1,9 @@
+.TH WALLPAPER_MENU 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+wallpaper_menu \- Sélectionne un fond d'écran via interface Rofi.
+.SH SYNOPSIS
+wallpaper_menu [chemin_dossier]
+.SH DESCRIPTION
+Affiche une interface Rofi pour naviguer dans les dossiers/images et appliquer l’image sélectionnée comme fond d'écran.
+.SH AUTEUR
+BigOuden

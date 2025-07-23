@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Directory containing .txt man sources
+SOURCE_DIR="$DOTFILES/custom-scripts/help_files/"
+TARGET_DIR="$HOME/man/man1"
+
+# Create target directory if it doesn't exist
+mkdir -p "$TARGET_DIR"
+
+# Compress all .txt man files into .1.gz format
+for file in "$SOURCE_DIR"/*.txt; do
+    [ -e "$file" ] || continue
+    base_name=$(basename "$file" .txt)
+    gzip -c "$file" > "$TARGET_DIR/${base_name}.1.gz"
+    echo "$base_name.1.gz updated"
+done
+
+echo "Man pages installed. You can now run: man <script_name>"

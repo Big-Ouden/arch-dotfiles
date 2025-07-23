@@ -1,0 +1,42 @@
+.TH UPDATE_CUSTOM_MAN 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+update_custom_man \- Met à jour les pages de manuel personnalisées dans \$HOME/man
+
+.SH SYNOPSIS
+update_custom_man.sh
+
+.SH DESCRIPTION
+Ce script automatise la mise à jour des pages de manuel personnalisées. Il :
+
+.TP
+- Compresse les fichiers \fB.txt\fP dans \$DOTFILES/custom-scripts/help_files/ au format \fB.1.gz\fP
+.TP
+- Place les fichiers compressés dans le dossier \fB\$HOME/man/man1/\fP
+
+.SH PRÉREQUIS
+- Les fichiers source doivent être nommés en \fBscript_name.txt\fP
+- Le dossier \$DOTFILES/custom-scripts/help_files/ doit exister et contenir ces fichiers
+
+.SH UTILISATION
+.TP
+1. Place tes fichiers texte dans \fB\$DOTFILES/custom-scripts/help_files/\fP
+.TP
+2. Lance le script :
+.B
+update_man
+
+.TP
+3. Utilise :
+.B
+man script_name
+
+.SH EXEMPLE
+.RS
+man change_wallpaper
+.br
+man runbg
+.RE
+
+.SH AUTEUR
+BigOuden <contact@bigouden.org>
+

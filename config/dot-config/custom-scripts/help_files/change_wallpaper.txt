@@ -1,0 +1,31 @@
+.TH CHANGE_WALLPAPER 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+change_wallpaper \- Change le fond d'écran actuel (ou login) avec Hyprpaper.
+.SH SYNOPSIS
+change_wallpaper [options] <image|folder>
+.SH DESCRIPTION
+Change le fond d'écran pour Hyprland avec plusieurs modes :
+.br
+- image unique
+.br
+- dossier (aléatoire)
+.br
+- mode login
+.SH OPTIONS
+.TP
+--random, -r
+Configure un dossier pour fond aléatoire.
+.TP
+--login, -l
+Définit un fond d'écran de connexion.
+.TP
+--load-random
+Recharge un fond aléatoire.
+.TP
+--ipc=on|off
+Active ou non le mode IPC.
+.TP
+--splash=true|false
+Affiche ou non le splash text.
+.SH AUTEUR
+BigOuden

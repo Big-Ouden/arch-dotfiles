@@ -1,0 +1,9 @@
+.TH ASCII 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+ascii \- Affiche la table ASCII complète.
+.SH SYNOPSIS
+ascii
+.SH DESCRIPTION
+Affiche la table de correspondance ASCII en format lisible avec les valeurs décimales, hexadécimales et caractères visibles.
+.SH AUTEUR
+BigOuden

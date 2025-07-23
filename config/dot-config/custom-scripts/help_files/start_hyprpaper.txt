@@ -1,0 +1,9 @@
+.TH START_HYPRPAPER 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+start_hyprpaper \- Démarre Hyprpaper selon la configuration courante.
+.SH SYNOPSIS
+start_hyprpaper
+.SH DESCRIPTION
+Vérifie si un fond d'écran aléatoire est configuré et lance Hyprpaper en conséquence.
+.SH AUTEUR
+BigOuden

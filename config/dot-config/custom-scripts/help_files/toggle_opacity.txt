@@ -1,0 +1,9 @@
+.TH TOGGLE_OPACITY 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+toggle_opacity \- Active ou désactive l’opacité des fenêtres.
+.SH SYNOPSIS
+toggle_opacity
+.SH DESCRIPTION
+Alterne entre opacité 1.0 et 0.95/0.80 via hyprctl.
+.SH AUTEUR
+BigOuden

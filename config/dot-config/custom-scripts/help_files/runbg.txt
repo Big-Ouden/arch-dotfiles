@@ -1,0 +1,9 @@
+.TH RUNBG 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+runbg \- Lance une commande en arrière-plan proprement.
+.SH SYNOPSIS
+runbg <commande>
+.SH DESCRIPTION
+Lance un processus sans bloquer le terminal, redirige les flux si nécessaire.
+.SH AUTEUR
+BigOuden
