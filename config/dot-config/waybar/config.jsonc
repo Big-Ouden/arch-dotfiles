@@ -2,9 +2,9 @@
   "layer": "top",
   "height": 12,
   "spacing": 5,
-  "margin-top" :5,
-  "margin-right" :8,
-  "margin-left" :8,
+  "margin-top" :2,
+  "margin-right" :2,
+  "margin-left" :2,
 
   "modules-left": [
     "custom/rofi",
@@ -24,7 +24,7 @@
     //"cpu",
     //"temperature",
     "custom/memory",
-    "backlight",
+    // "backlight",
     "cava",
     "pulseaudio",
     "battery",

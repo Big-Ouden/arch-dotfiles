@@ -52,10 +52,10 @@ window#waybar.hidden {
   font-family: JetBrainsMono Nerd Font Propo;
   font-size: 12px;
   font-weight: 800;
-  color: #202020;
-  background: #202020;
-  border: 3px solid #202020;
-  border-radius: 3px;
+  color: #282828;
+  background: #282828;
+  border: 3px solid #282828;
+  border-radius: 2px;
 }
 
 #window,
@@ -79,6 +79,7 @@ window#waybar.hidden {
  padding-right: 4px;
 */
 }
+
 
 #custom-rofi {
   background: #83a598;
