@@ -1,9 +1,9 @@
 <div align="center">
     <img src="assets/banner.webp"></img> </br>
-    <img alt="GitHub License" src="https://img.shields.io/github/license/Big-Ouden/arch-dotfiles?style=for-the-badge">
-    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Big-Ouden/arch-dotfiles?style=for-the-badge"></img>
-    <a href="https://belier.iiens.net"><img alt="Personnal blog link" src="https://img.shields.io/badge/BLOG-HOW%20I%20MANAGE%20MY%20DOTFILES-yellow?style=for-the-badge"></img></a>
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Big-Ouden/arch-dotfiles?display_timestamp=author&style=for-the-badge">
+    <img alt="GitHub License" src="https://shieldsio.bigouden.org/github/license/Big-Ouden/arch-dotfiles?style=for-the-badge">
+    <img alt="GitHub repo size" src="https://shieldsio.bigouden.org/github/repo-size/Big-Ouden/arch-dotfiles?style=for-the-badge"></img>
+    <a href="https://belier.iiens.net"><img alt="Personnal blog link" src="https://shieldsio.bigouden.org/badge/BLOG-HOW%20I%20MANAGE%20MY%20DOTFILES-yellow?style=for-the-badge"></img></a>
+    <img alt="GitHub last commit" src="https://shieldsio.bigouden.org/github/last-commit/Big-Ouden/arch-dotfiles?display_timestamp=author&style=for-the-badge">
     <p>
     My personal dotfiles managed with <a href="https://www.gnu.org/software/stow/">stow</a>
     </p>
