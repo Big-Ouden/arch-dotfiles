@@ -105,6 +105,7 @@ window {
 	border:	1px solid;
 	border-color: @separatorcolor;
 	padding:	2;
+	anchor: center;
 }
 
 /**** -- Main Box -- ****/
