@@ -1,38 +1,145 @@
 #!/usr/bin/env bash
-
 # === Couleurs ===
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 RESET='\033[0m'
 
 # === Aide ===
 print_help() {
-  echo -e "${YELLOW}Usage:${RESET} $0 <nom_dossier> <nom_template> [--repo <url_git>]"
+  echo -e "${YELLOW}Usage:${RESET}"
+  echo "  init_rapport <nom_dossier> <nom_template> [--repo <url_git>]    # Créer un nouveau rapport"
+  echo "  init_rapport --manage <commande> [arguments]                    # Gérer sparse-checkout"
   echo
-  echo "Ce script clone un dépôt centralisé contenant un sous-module de templates,"
-  echo "et initialise un nouveau dossier de travail à partir du template choisi."
-  echo
-  echo -e "${YELLOW}Arguments:${RESET}"
+  echo -e "${YELLOW}Création de rapport:${RESET}"
   echo "  <nom_dossier>     Nom du dossier de travail à créer (ex: rapport2025)"
   echo "  <nom_template>    Nom du template dans le sous-module 'template/' (ex: iie-rapport)"
   echo "  --repo <url>      (optionnel) URL du dépôt principal à cloner"
   echo
-  echo -e "${YELLOW}Exemple:${RESET}"
-  echo "  $0 rapport2025 iie-rapport --repo git@github.com:Big-Ouden/all-reports.git"
+  echo -e "${YELLOW}Gestion sparse-checkout:${RESET}"
+  echo "  --manage list                    Affiche la configuration sparse-checkout actuelle"
+  echo "  --manage set <rapport>           Configure pour ne synchroniser qu'un seul rapport"
+  echo "  --manage add <rapport>           Ajoute un rapport à la synchronisation"
+  echo "  --manage remove <rapport>        Retire un rapport de la synchronisation"
+  echo "  --manage reset                   Réinitialise pour synchroniser tout le dépôt"
+  echo "  --manage available               Liste les rapports disponibles sur le serveur"
+  echo "  --manage status                  Affiche le statut actuel"
+  echo
+  echo -e "${YELLOW}Exemples:${RESET}"
+  echo "  init_rapport rapport2025 iie-rapport --repo git@github.com:Big-Ouden/all-reports.git"
+  echo "  init_rapport --manage list"
+  echo "  init_rapport --manage set rapport2025"
+  echo "  init_rapport --manage add rapport2024"
+}
+
+# === Fonctions de gestion sparse-checkout ===
+manage_sparse_checkout() {
+  # Vérification qu'on est dans un repo git
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo -e "${RED}Erreur:${RESET} Cette fonction doit être exécutée dans un dépôt git."
+    exit 1
+  fi
+
+  case "$1" in
+    list)
+      echo -e "${BLUE}Configuration sparse-checkout actuelle:${RESET}"
+      if git sparse-checkout list >/dev/null 2>&1; then
+        git sparse-checkout list | sed 's/^/  ✓ /'
+      else
+        echo "  Sparse-checkout non configuré (tout le repo est synchronisé)"
+      fi
+      ;;
+    set)
+      if [ -z "$2" ]; then
+        echo -e "${RED}Erreur:${RESET} Il faut spécifier un nom de rapport."
+        exit 1
+      fi
+      echo -e "${YELLOW}Configuration du sparse-checkout pour '$2' uniquement...${RESET}"
+      git sparse-checkout init --cone
+      git sparse-checkout set "$2"
+      git read-tree -m -u HEAD
+      echo -e "${GREEN}✓ Configuré pour synchroniser uniquement '$2'${RESET}"
+      ;;
+    add)
+      if [ -z "$2" ]; then
+        echo -e "${RED}Erreur:${RESET} Il faut spécifier un nom de rapport."
+        exit 1
+      fi
+      echo -e "${YELLOW}Ajout de '$2' à la synchronisation...${RESET}"
+      if ! git sparse-checkout list >/dev/null 2>&1; then
+        git sparse-checkout init --cone
+      fi
+      git sparse-checkout add "$2"
+      git read-tree -m -u HEAD
+      echo -e "${GREEN}✓ '$2' ajouté à la synchronisation${RESET}"
+      ;;
+    remove)
+      if [ -z "$2" ]; then
+        echo -e "${RED}Erreur:${RESET} Il faut spécifier un nom de rapport."
+        exit 1
+      fi
+      echo -e "${YELLOW}Suppression de '$2' de la synchronisation...${RESET}"
+      current_patterns=$(git sparse-checkout list | grep -v "^$2$" || true)
+      if [ -z "$current_patterns" ]; then
+        echo -e "${YELLOW}Attention: Plus aucun dossier ne sera synchronisé. Réinitialisation complète.${RESET}"
+        git sparse-checkout disable
+      else
+        echo "$current_patterns" | git sparse-checkout set --stdin
+        git read-tree -m -u HEAD
+      fi
+      echo -e "${GREEN}✓ '$2' retiré de la synchronisation${RESET}"
+      ;;
+    reset)
+      echo -e "${YELLOW}Réinitialisation du sparse-checkout (synchronisation complète)...${RESET}"
+      git sparse-checkout disable
+      git read-tree -m -u HEAD
+      echo -e "${GREEN}✓ Sparse-checkout désactivé. Tout le dépôt sera synchronisé.${RESET}"
+      ;;
+    available)
+      echo -e "${BLUE}Recherche des rapports disponibles sur le serveur...${RESET}"
+      git ls-tree -d --name-only origin/main | grep -E '^rapport' | sed 's/^/  📄 /' || echo "  Aucun rapport trouvé"
+      ;;
+    status)
+      echo -e "${BLUE}Statut actuel:${RESET}"
+      if git sparse-checkout list >/dev/null 2>&1; then
+        echo -e "  Mode: ${GREEN}Sparse-checkout activé${RESET}"
+        echo -e "  Synchronisation limitée à:"
+        git sparse-checkout list | sed 's/^/    ✓ /'
+      else
+        echo -e "  Mode: ${YELLOW}Synchronisation complète${RESET}"
+        echo "  Tous les fichiers du dépôt sont synchronisés"
+      fi
+      echo
+      echo -e "${BLUE}Dossiers présents localement:${RESET}"
+      ls -d rapport* 2>/dev/null | sed 's/^/  📁 /' || echo "  Aucun rapport local trouvé"
+      ;;
+    *)
+      echo -e "${RED}Erreur:${RESET} Commande de gestion inconnue: $1"
+      print_help
+      exit 1
+      ;;
+  esac
 }
 
 # === Variables par défaut ===
 REPO_URL="git@github.com:Big-Ouden/all-reports.git"  
 REPO_DIR="all-reports"
-RAPPORT_NAME="rapport-$(date '+%d-%m-%Y')"
-TEMPLATE_NAME="iie-rapport"
+RAPPORT_NAME=""
+TEMPLATE_NAME=""
+MANAGE_MODE=false
 
 # === Parsing des arguments ===
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -h|--help)
       print_help
+      exit 0
+      ;;
+    --manage)
+      MANAGE_MODE=true
+      shift
+      manage_sparse_checkout "$@"
       exit 0
       ;;
     --repo)
@@ -42,6 +149,11 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       REPO_URL="$1"
+      ;;
+    -*)
+      echo -e "${RED}Erreur:${RESET} Option inconnue: $1"
+      print_help
+      exit 1
       ;;
     *)
       if [ -z "$RAPPORT_NAME" ]; then
@@ -57,47 +169,97 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-# === Vérification des paramètres ===
-if [ -z "$RAPPORT_NAME" ] || [ -z "$TEMPLATE_NAME" ]; then
-  echo -e "${RED}Erreur:${RESET} Il faut fournir un nom de dossier ET un nom de template."
-  print_help
-  exit 1
+# === Mode création de rapport ===
+if [ "$MANAGE_MODE" = false ]; then
+  # Vérification des paramètres
+  if [ -z "$RAPPORT_NAME" ] || [ -z "$TEMPLATE_NAME" ]; then
+    echo -e "${RED}Erreur:${RESET} Il faut fournir un nom de dossier ET un nom de template."
+    print_help
+    exit 1
+  fi
+
+  # Clonage du dépôt principal
+  echo -e "${YELLOW}Clonage du dépôt principal...${RESET}"
+  git clone --filter=blob:none --no-checkout "$REPO_URL" "$REPO_DIR"
+  cd "$REPO_DIR" || exit 1
+
+  # Configuration du sparse-checkout pour inclure les submodules
+  echo -e "${BLUE}Configuration du sparse-checkout...${RESET}"
+  git sparse-checkout init --cone
+  git sparse-checkout set ".gitmodules" "template"
+
+  # Checkout pour récupérer les fichiers
+  git checkout main
+
+  # Initialisation et mise à jour des submodules
+  echo -e "${BLUE}Initialisation des submodules...${RESET}"
+  if [ -f ".gitmodules" ]; then
+    git submodule init
+    echo -e "${BLUE}Récupération du submodule template...${RESET}"
+    git submodule update --init --recursive template
+    
+    if [ ! -d "template/.git" ] && [ ! -f "template/.git" ]; then
+      echo -e "${RED}Erreur: Le submodule template n'a pas pu être initialisé.${RESET}"
+      exit 4
+    fi
+  else
+    echo -e "${YELLOW}Attention: Aucun fichier .gitmodules trouvé. Le dépôt ne semble pas contenir de submodules.${RESET}"
+  fi
+
+  TEMPLATE_PATH="template/$TEMPLATE_NAME"
+
+  # Vérification de l'existence du template
+  if [ ! -d "$TEMPLATE_PATH" ]; then
+    echo -e "${RED}Le template '$TEMPLATE_NAME' n'existe pas dans template/.${RESET}"
+    echo -e "${YELLOW}Templates disponibles :${RESET}"
+    if [ -d "template" ]; then
+      ls template/ 2>/dev/null || echo "  (aucun template trouvé)"
+    else
+      echo "  (dossier template non trouvé)"
+    fi
+    exit 2
+  fi
+
+  # Création du dossier de travail
+  if [ -d "$RAPPORT_NAME" ]; then
+    echo -e "${RED}Le dossier '$RAPPORT_NAME' existe déjà.${RESET}"
+    exit 3
+  fi
+
+  echo -e "${GREEN}Création du dossier '$RAPPORT_NAME' à partir de '$TEMPLATE_NAME'...${RESET}"
+  cp -r "$TEMPLATE_PATH" "$RAPPORT_NAME"
+
+  # Nettoyage optionnel
+  if [ -d "$RAPPORT_NAME/.git" ]; then
+    rm -rf "$RAPPORT_NAME/.git"
+    echo -e "${BLUE}Références git du template supprimées.${RESET}"
+  fi
+
+  # Configuration du sparse-checkout pour le travail sur le rapport
+  echo -e "${BLUE}Configuration du sparse-checkout pour le travail sur le rapport...${RESET}"
+  git sparse-checkout set "$RAPPORT_NAME"
+
+  # Supprimer le dossier template du working directory
+  if [ -d "template" ]; then
+    rm -rf template
+    echo -e "${BLUE}Dossier template supprimé du working directory.${RESET}"
+  fi
+
+  echo -e "${GREEN}✓ Rapport initialisé dans: $REPO_DIR/$RAPPORT_NAME${RESET}"
+  echo -e "${GREEN}✓ Sparse-checkout configuré pour ne synchroniser que votre rapport${RESET}"
+  echo
+  echo -e "${YELLOW}Prochaines étapes :${RESET}"
+  echo "   cd $REPO_DIR"
+  echo "   git add $RAPPORT_NAME"
+  echo "   git commit -m \"Ajout du rapport $RAPPORT_NAME basé sur $TEMPLATE_NAME\""
+  echo "   git push"
+  echo
+  echo -e "${BLUE}Configuration actuelle:${RESET}"
+  echo "   ✓ Seul le dossier '$RAPPORT_NAME' sera synchronisé lors des git pull"
+  echo "   ✓ Les autres rapports et templates ne seront pas téléchargés"
+  echo
+  echo -e "${YELLOW}Pour gérer la synchronisation plus tard :${RESET}"
+  echo "   init_rapport --manage list                    # Voir la config actuelle"
+  echo "   init_rapport --manage add <autre_rapport>     # Ajouter un autre rapport"
+  echo "   init_rapport --manage status                  # Voir le statut"
 fi
-
-# === Clonage du dépôt principal ===
-echo -e "${YELLOW}Clonage du dépôt principal (shallow)...${RESET}"
-git clone --depth 1 "$REPO_URL" "$REPO_DIR"
-
-cd "$REPO_DIR" || exit 1
-
-# === Initialisation des sous-modules ===
-echo -e "${YELLOW}Initialisation du sous-module 'template/'...${RESET}"
-git submodule update --init --depth 1 template
-
-TEMPLATE_PATH="template/$TEMPLATE_NAME"
-
-# === Vérification de l’existence du template ===
-if [ ! -d "$TEMPLATE_PATH" ]; then
-  echo -e "${RED}Le template '$TEMPLATE_NAME' n'existe pas dans template/.${RESET}"
-  echo -e "${YELLOW}Templates disponibles :${RESET}"
-  ls template/
-  exit 2
-fi
-
-# === Création du dossier de travail ===
-if [ -d "$RAPPORT_NAME" ]; then
-  echo -e "${RED}Le dossier '$RAPPORT_NAME' existe déjà.${RESET}"
-  exit 3
-fi
-
-echo -e "${GREEN}Création du dossier '$RAPPORT_NAME' à partir de '$TEMPLATE_NAME'...${RESET}"
-cp -r "$TEMPLATE_PATH" "$RAPPORT_NAME"
-
-echo -e "${GREEN}Rapport initialisé dans: $REPO_DIR/$RAPPORT_NAME${RESET}"
-echo -e "${YELLOW}Tu peux maintenant faire :${RESET}"
-echo "   cd $REPO_DIR"
-echo "   git add $RAPPORT_NAME"
-echo "   git commit -m \"Ajout du rapport $RAPPORT_NAME basé sur $TEMPLATE_NAME\""
-echo "   git push"
-
-

@@ -1,9 +1,186 @@
 .TH INIT_RAPPORT.SH 1 "Juillet 2025" "1.0" "Commandes utilisateur"
 .SH NOM
-init_rapport.sh \- Initialise un dossier de rapport à partir d’un template Git.
+init_rapport.sh \- Initialise un dossier de rapport à partir d'un template Git avec gestion sparse-checkout
 .SH SYNOPSIS
-init_rapport.sh <nom_dossier> <template> [--repo <url_git>]
+.B init_rapport.sh
+\fI<nom_dossier>\fR \fI<nom_template>\fR [\fB--repo\fR \fI<url_git>\fR]
+.br
+.B init_rapport.sh
+\fB--manage\fR \fI<commande>\fR [\fIarguments\fR]
 .SH DESCRIPTION
-Clone un dépôt et initialise un rapport selon un template.
+\fBinit_rapport.sh\fR est un script permettant de cloner un dépôt centralisé contenant des templates de rapports stockés dans un sous-module Git, et d'initialiser un nouveau dossier de travail à partir du template choisi. Le script configure automatiquement le sparse-checkout pour optimiser les synchronisations futures en ne téléchargeant que le contenu nécessaire.
+
+Le script fonctionne en deux modes :
+.IP \[bu] 2
+Mode création : initialise un nouveau rapport à partir d'un template
+.IP \[bu] 2
+Mode gestion : gère la configuration sparse-checkout pour contrôler quels dossiers sont synchronisés
+
+.SH OPTIONS DE CRÉATION
+.TP
+.BI <nom_dossier>
+Nom du dossier de travail à créer (ex: rapport2025). Ce dossier contiendra le rapport basé sur le template sélectionné.
+.TP
+.BI <nom_template>
+Nom du template dans le sous-module 'template/' (ex: iie-rapport). Le template doit exister dans le sous-module pour que la création réussisse.
+.TP
+.BI --repo " url_git"
+URL du dépôt principal à cloner. Si non spécifié, utilise l'URL par défaut configurée dans le script.
+
+.SH OPTIONS DE GESTION
+.TP
+.BI --manage " list"
+Affiche la configuration sparse-checkout actuelle. Montre quels dossiers sont synchronisés lors des opérations Git.
+.TP
+.BI --manage " set " <rapport>
+Configure le sparse-checkout pour ne synchroniser qu'un seul rapport spécifié. Tous les autres dossiers seront exclus des synchronisations.
+.TP
+.BI --manage " add " <rapport>
+Ajoute un rapport à la liste des dossiers synchronisés. Permet de travailler sur plusieurs rapports simultanément.
+.TP
+.BI --manage " remove " <rapport>
+Retire un rapport de la synchronisation. Le dossier local reste intact mais ne sera plus mis à jour lors des git pull.
+.TP
+.BI --manage " reset"
+Désactive le sparse-checkout et revient à la synchronisation complète du dépôt. Tous les fichiers seront à nouveau synchronisés.
+.TP
+.BI --manage " available"
+Liste tous les rapports disponibles sur le serveur distant. Utile pour connaître les rapports existants avant de les ajouter à la synchronisation.
+.TP
+.BI --manage " status"
+Affiche un résumé complet de l'état actuel : configuration sparse-checkout, dossiers synchronisés et dossiers présents localement.
+
+.SH FONCTIONNALITÉS
+.SS Sparse-checkout automatique
+Le script configure automatiquement le sparse-checkout après la création d'un rapport pour optimiser les performances :
+.IP \[bu] 2
+Seul le dossier du rapport créé est synchronisé
+.IP \[bu] 2
+Les autres rapports et templates ne sont pas téléchargés
+.IP \[bu] 2
+Les opérations git pull deviennent plus rapides
+
+.SS Gestion des sous-modules
+Le script gère automatiquement les sous-modules Git :
+.IP \[bu] 2
+Initialisation automatique des sous-modules nécessaires
+.IP \[bu] 2
+Récupération sélective du contenu des templates
+.IP \[bu] 2
+Nettoyage des références Git du template copié
+
+.SS Optimisation des performances
+.IP \[bu] 2
+Utilise --filter=blob:none pour un clonage partiel
+.IP \[bu] 2
+Clone uniquement les métadonnées Git initialement
+.IP \[bu] 2
+Télécharge le contenu de façon sélective
+
+.SH EXEMPLES
+.SS Création d'un nouveau rapport
+.nf
+# Créer un rapport avec le template par défaut
+init_rapport.sh rapport2025 iie-rapport
+
+# Créer un rapport depuis un autre dépôt
+init_rapport.sh mon-rapport template-custom \\
+    --repo git@github.com:user/templates.git
+.fi
+
+.SS Gestion du sparse-checkout
+.nf
+# Voir la configuration actuelle
+init_rapport.sh --manage list
+
+# Configurer pour ne synchroniser qu'un rapport
+init_rapport.sh --manage set rapport2025
+
+# Ajouter un autre rapport à la synchronisation
+init_rapport.sh --manage add rapport2024
+
+# Voir tous les rapports disponibles
+init_rapport.sh --manage available
+
+# Voir le statut complet
+init_rapport.sh --manage status
+
+# Revenir à la synchronisation complète
+init_rapport.sh --manage reset
+.fi
+
+.SH WORKFLOW TYPIQUE
+.nf
+1. init_rapport.sh rapport2025 iie-rapport
+2. cd all-reports
+3. git add rapport2025
+4. git commit -m "Ajout du rapport rapport2025"
+5. git push
+
+# Travail quotidien
+6. git pull  # Synchronise uniquement rapport2025
+7. # Modifications du rapport...
+8. git add rapport2025
+9. git commit -m "Mise à jour du rapport"
+10. git push
+.fi
+
+.SH STRUCTURE DU DÉPÔT
+Le script suppose une structure de dépôt comme suit :
+.nf
+dépôt-principal/
+├── .gitmodules
+├── template/           # Sous-module contenant les templates
+│   ├── iie-rapport/
+│   ├── template-a/
+│   └── template-b/
+├── rapport2024/        # Rapports existants
+├── rapport2025/
+└── ...
+.fi
+
+.SH CODES DE RETOUR
+.TP
+.B 0
+Succès
+.TP
+.B 1
+Erreur d'arguments ou d'options
+.TP
+.B 2
+Template non trouvé
+.TP
+.B 3
+Dossier de rapport existant
+.TP
+.B 4
+Échec d'initialisation du sous-module
+
+.SH FICHIERS
+.TP
+.B .gitmodules
+Fichier de configuration des sous-modules Git, nécessaire pour initialiser les templates.
+
+.SH VARIABLES D'ENVIRONNEMENT
+Le script utilise les variables d'environnement Git standard :
+\fBGIT_CONFIG\fR, \fBGIT_DIR\fR, \fBGIT_WORK_TREE\fR
+
+.SH VOIR AUSSI
+.BR git (1),
+.BR git-sparse-checkout (1),
+.BR git-submodule (1),
+.BR git-clone (1)
+
+.SH BOGUES
+.IP \[bu] 2
+Le script nécessite que le dépôt distant soit accessible via SSH ou HTTPS
+.IP \[bu] 2
+Les templates doivent être dans un sous-module nommé 'template'
+.IP \[bu] 2
+La gestion sparse-checkout nécessite Git version 2.25 ou supérieure
+
 .SH AUTEUR
 BigOuden
+
+.SH HISTORIQUE
+Version 1.0 - Juillet 2025 : Version initiale avec support sparse-checkout et sous-modules
