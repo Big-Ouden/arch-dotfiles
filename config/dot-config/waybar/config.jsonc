@@ -174,9 +174,10 @@
         "input_delay": 2,
         "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
         //"format-icons" : ["▁", "▂", "▃", "▄", "▅"  ],
-        "actions": {
-                   "on-click-right": "mode"
-                   }
+        // "actions": {
+        //            "on-click-right": "mode"
+        //            }
+        "on-click" : "$DOTFILES/custom-scripts/lofi",
   },
 
   "battery#bat2": {
