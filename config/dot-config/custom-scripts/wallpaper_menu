@@ -21,6 +21,8 @@ Exemples:
 EOF
 }
 
+config=$HOME/.config/custom-scripts/wallpaper.rasi
+
 # Vérifier si l'option d'aide est passée
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
     show_help
@@ -36,14 +38,15 @@ list_files_and_dirs() {
     echo -en "..\0icon\x1f../\n"
 
     # Lister les dossiers
-    find . -maxdepth 1 -type d ! -path . | sed 's|./||' | while read -r dir; do
+    find . -maxdepth 1 -type d ! -path . ! -name ".*" | sed 's|./||' | while read -r dir; do
         echo -en "$dir/\0icon\x1f$dir\n"
     done
 
     # Lister les fichiers images
-    find . -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | sed 's|./||' | while read -r file; do
-        echo -en "$file\0icon\x1f$file\n"
+    find . -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \)  ! -name ".*"| sed 's|./||' | while read -r file; do
+        echo -en "$file\0icon\x1f$(realpath "$file")\n"
     done
+
 }
 
 # Fonction pour gérer la navigation et la sélection
@@ -51,7 +54,7 @@ navigate_and_select() {
     local current_folder="$1"
     local selection
     while true; do
-        selection=$(list_files_and_dirs "$current_folder" | rofi -dmenu -theme-str 'window {width: 50%;} listview {columns: 1;}' -show-icons -p "Wallpaper ")
+        selection=$(list_files_and_dirs "$current_folder" | rofi -dmenu -config "$config" -theme-str 'window {width: 50%;} listview {columns: 1;}' -show-icons -p "Wallpaper "  )
 
         if [[ -z "$selection" ]]; then
             echo "Aucune sélection."
@@ -70,7 +73,7 @@ navigate_and_select() {
     echo "Image sélectionnée: $selection"
 
     # Utiliser rofi pour choisir l'action à effectuer
-    action=$(printf "Desktop\nLogin\nBoth\nCancel" | rofi -dmenu -p "Set as:")
+    action=$(printf "Desktop\nLogin\nBoth\nCancel" | rofi -dmenu -i -config "$config" -p "Set as:")
 
     case "$action" in
         Desktop)

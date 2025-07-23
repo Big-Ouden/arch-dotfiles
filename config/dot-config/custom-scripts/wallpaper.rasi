@@ -1,0 +1,18 @@
+@import "/home/bigouden/.config/rofi/config.rasi"
+
+
+window {
+	height: 600px;
+	width:1000px;
+}
+
+listview {
+	lines:	10;
+}
+
+element-text{
+	vertical-align: 0.5;
+}
+element-icon {
+	size:  2.5em;
+}
