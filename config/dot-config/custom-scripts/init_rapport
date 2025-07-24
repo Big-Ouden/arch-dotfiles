@@ -27,7 +27,7 @@ print_help() {
   echo "  --manage status                  Affiche le statut actuel"
   echo
   echo -e "${YELLOW}Exemples:${RESET}"
-  echo "  init_rapport rapport2025 iie-rapport --repo git@github.com:Big-Ouden/all-reports.git"
+  echo "  init_rapport rapport2025 iie-rapport --repo git@github.com:Big-Ouden/doc-boilerplate.git"
   echo "  init_rapport --manage list"
   echo "  init_rapport --manage set rapport2025"
   echo "  init_rapport --manage add rapport2024"
@@ -123,7 +123,7 @@ manage_sparse_checkout() {
 }
 
 # === Variables par défaut ===
-REPO_URL="git@github.com:Big-Ouden/all-reports.git"  
+REPO_URL="git@github.com:Big-Ouden/doc-boilerplate.git"  
 REPO_DIR="all-reports"
 RAPPORT_NAME=""
 TEMPLATE_NAME=""
