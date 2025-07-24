@@ -40,7 +40,7 @@ elif [ "$BATTERY_LEVEL" -le $MID_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && 
 	notify-send "Mid Battery" "${BATTERY_LEVEL}% of battery remaining." -u normal -i "battery-50" -r 9991
 	touch $MID_FILE
 elif [ "$BATTERY_LEVEL" -le $WARNING_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && [ ! -f $EMPTY_FILE ]; then
-	notify-send "Low Battery" "${BATTERY_LEVEL}% of battery remaining." -u normal -i "battery-20" -r 9991
+	notify-send "Low Battery" "${BATTERY_LEVEL}% of battery remaining." -u critical -i "battery-20" -r 9991
 	touch $EMPTY_FILE
 	# If the battery is critical and is not charging (and has not shown notification yet)
 elif [ "$BATTERY_LEVEL" -le $CRITICAL_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && [ ! -f $CRITICAL_FILE ]; then
