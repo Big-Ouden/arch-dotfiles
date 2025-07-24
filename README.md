@@ -9,7 +9,7 @@
     </p>
 </div>
 
----
+
 
 ## Sommaire
 
@@ -22,10 +22,9 @@
 * [Applications installées](#applications-installées)
 * [Configuration des outils](#configuration-des-outils)
 * [Scripts personnalisés](#scripts-personnalisés)
-* [Gestion des dotfiles avec Stow](#gestion-des-dotfiles-avec-stow)
 * [Liens utiles](#liens-utiles)
 
----
+
 
 ## Screenshots
 
