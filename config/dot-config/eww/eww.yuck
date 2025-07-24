@@ -1,0 +1,79 @@
+;; Version avec defpoll (plus fiable que deflisten pour les fichiers)
+(defpoll todo-content
+	:interval "2s"  ; Met à jour toutes les 2 secondes
+	:initial "Chargement..."
+	`cat /home/bigouden/TODO.md 2>/dev/null || echo "Fichier TODO introuvable"`)
+
+
+;; Time vars
+(defpoll TIME :interval "5s" `date +\"%H : %M\" `)
+
+
+;; clock
+(defwindow clock
+	:stacking "bg"
+	:focusable "false"
+	:monitor 0
+	:geometry (geometry
+		:x "17.5%"
+		:y "10%"
+		:width "10%"
+		;:height 155
+		:anchor "top right")
+	(box :class "clock-box"
+		(label
+			:class "time_hour"
+			:valign "start"
+			:wrap "true"
+			:limit-width 25
+			:text TIME)
+	)
+)
+
+
+(defwindow todo
+	:class "window"
+	:monitor 0
+	:geometry (geometry
+		:x "10%"
+		:y "0%"
+		:width "25%"
+		:height "50%"
+		:anchor "center right"
+	)
+	:stacking "bg"
+	:reserve (struts
+		:distance "40px"
+	  :side "top"
+	)
+	:windowtype "dock"
+	:wm-ignore false
+
+	(eventbox
+		:onrightclick "hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty nvim ~/TODO.md'"
+		(box :orientation "vertical"
+			:class "todo-container"
+			:space-evenly false
+			:spacing 8
+			(label
+				:text "TODO"
+				:class "todo-header"
+				:valign "start"   ;Évite que le label s'étende
+			)
+			(scroll
+				:vscroll true
+				:hscroll false
+				:vexpand true      ;Permet au scroll de s'étendre verticalement
+				:hexpand true      ;Permet au scroll de s'étendre horizontalement
+
+				(label
+					:text "${todo-content}"
+					:class "todo-content"
+					:wrap true
+					:xalign 0
+					:valign "start"  ;Aligne le contenu en haut
+				)
+			)
+		)
+	)
+)

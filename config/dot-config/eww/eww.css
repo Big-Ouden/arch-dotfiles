@@ -1,0 +1,56 @@
+/* Style Gruvbox simple pour widget TODO eww */
+
+* {
+	background: none;
+}
+
+.window {
+	background-color:red;
+}
+
+/* Conteneur principal */
+.todo-container, .clock-box {
+  background-color: #282828;
+  border: 1px solid #504945;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* En-tête TODO */
+.todo-header{
+  font-size: 16px;
+  font-weight: bold;
+  color: #d79921;
+  /* margin-bottom: 8px; */
+  padding-bottom: 8px;
+  /* border-bottom: 1px solid #504945; */
+}
+
+/* Contenu du TODO */
+.todo-content {
+  font-family: monospace;
+  font-size: 13px;
+  color: #ebdbb2;
+  background-color: #282828;
+  border-radius: 4px;
+  padding: 8px;
+	padding-top: 0px;
+  /* line-height: 1.4; */
+}
+
+/* Scrollbar */
+scrollbar {
+	background-color: #3c3836;
+}
+
+scrollbar slider {
+	background-color: #665c54;
+  border-radius: 4px;
+}
+
+
+.time_hour, .time_min {
+  font-size: 16px;
+  font-weight: bold;
+  color: #d79921;
+}
