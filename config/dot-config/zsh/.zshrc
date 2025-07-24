@@ -139,6 +139,7 @@ export PATH=/home/bigouden/bin:$PATH
 
 export PATH=$HOME/.local/bin:$PATH
 source /usr/share/nvm/init-nvm.sh
+export TYPST_PACKAGE_PATH=$HOME/.local/share/typst/packages
 # shellcheck shell=bash
 
 # shellcheck shell=bash

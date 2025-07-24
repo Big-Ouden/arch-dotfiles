@@ -134,9 +134,9 @@ alias ssh="TERM=xterm ssh"
 
 
 # +---------+
-# | scripts |
+# | Typst   |
 # +---------+
-
+alias "typst init"="typst init --package-path=$TYPST_PACKAGE_PATH"
 
 # +---------+
 # |  Open   |
