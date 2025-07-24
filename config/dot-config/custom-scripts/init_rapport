@@ -124,7 +124,7 @@ manage_sparse_checkout() {
 
 # === Variables par défaut ===
 REPO_URL="git@github.com:Big-Ouden/doc-boilerplate.git"  
-REPO_DIR="all-reports"
+REPO_DIR="doc-boilerplate"
 RAPPORT_NAME=""
 TEMPLATE_NAME=""
 MANAGE_MODE=false
