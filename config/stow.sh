@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#
 # Répertoire contenant les dotfiles
 DOTFILES_DIR="$HOME/arch-dotfiles/config"
 
