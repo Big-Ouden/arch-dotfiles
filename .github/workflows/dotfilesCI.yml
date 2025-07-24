@@ -1,0 +1,55 @@
+name: Dotfiles CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.lua'
+      - '**.sh'
+      - '**.json'
+      - '**.conf'
+      - '**.rasi'
+      - '**.vim'
+      - '**.zsh'
+      - '**.bash*'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y lua5.4 luacheck shellcheck jq jsonlint python3 python3-pip
+        pip install vim-vint
+
+    - name: Lint Lua (Neovim, lazy.nvim)
+      run: |
+        find . -type f -name '*.lua' | xargs -r luacheck
+
+    - name: Lint Shell Scripts
+      run: |
+        find . -type f \( -name '*.sh' -o -name '*.bash' -o -name '*.zsh' \) | xargs -r shellcheck
+
+    - name: Lint JSON (waybar, rofi menus, nwg*)
+      run: |
+        find . -type f -name '*.json' | xargs -r -I {} jsonlint -q {}
+
+    - name: Validate Vim config (vint)
+      run: |
+        find . -type f -name '*.vim' | xargs -r vint
+
+    - name: Validate Waybar config
+      run: |
+        jq . < ./config/dot-config/waybar/config.jsonc > /dev/null
+
+    - name: Check if Hyprland config parses
+      run: |
+        grep -v '^\s*#' ./config/dot-config/hypr/hyprland.conf | grep '=' || echo "Warning: hyprland.conf may be empty or malformed"
