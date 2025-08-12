@@ -59,6 +59,7 @@ image/x-portable-graymap=qview.desktop
 audio/mpeg=mpv.desktop
 audio/x-flac=mpv.desktop
 audio/mp4=mpv.desktop
+x-scheme-handler/figma=figma-linux.desktop
 
 [Added Associations]
 application/pdf=zathura.desktop;
