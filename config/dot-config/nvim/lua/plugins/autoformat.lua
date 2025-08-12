@@ -32,11 +32,14 @@ return {
 		end,
 		formatters_by_ft = {
 			lua = { "stylua" },
-			go = { "goimport", "gofmt" },
+			go = { "gofmt" },
 			rust = { "rustfmt", lsp_format = "fallback" },
 			python = { "isort", "black" },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
+			typescript = { "deno_fmt" },
+			tailwind = { "rustywind" },
 			c = { "astyle" },
+			astro = { "prettier" },
 			sh = { "beautysh" },
 			html = { "djlint" },
 			css = { "stylelint" },
@@ -44,7 +47,7 @@ return {
 			md = { "cbfmt" },
 			typst = { "prettypst" },
 			-- Use the "*" filetype to run formatters on all filetypes.
-			["*"] = { "codespell" },
+			-- ["*"] = { "codespell" },
 			-- Use the "_" filetype to run formatters on filetypes that don't
 			-- have other formatters configured.
 			["_"] = { "trim_whitespace" },

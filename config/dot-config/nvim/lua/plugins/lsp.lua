@@ -231,7 +231,34 @@ return {
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				-- ts_ls = {},
+				ts_ls = {},
+				-- {
+				-- 	tailwindCSS = {
+				-- 		classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+				-- 		includeLanguages = {
+				-- 			eelixir = "html-eex",
+				-- 			elixir = "phoenix-heex",
+				-- 			eruby = "erb",
+				-- 			heex = "phoenix-heex",
+				-- 			htmlangular = "html",
+				-- 			templ = "html",
+				-- 		},
+				-- 		lint = {
+				-- 			cssConflict = "warning",
+				-- 			invalidApply = "error",
+				-- 			invalidConfigPath = "error",
+				-- 			invalidScreen = "error",
+				-- 			invalidTailwindDirective = "error",
+				-- 			invalidVariant = "error",
+				-- 			recommendedVariantOrder = "warning",
+				-- 		},
+				-- 		validate = true,
+				-- 	},
+				-- },
+
+				-- biome = {},
+				mdx_analyzer = {},
+
 				--
 				digestif = {},
 
