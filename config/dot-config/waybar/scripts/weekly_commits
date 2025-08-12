@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
-import requests
 import datetime
 import json
-from collections import OrderedDict
 import os
-from dotenv import load_dotenv
 import sys
 import time
+from collections import OrderedDict
+
+import requests
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -28,7 +29,10 @@ if not GITHUB_USERNAME or not GITHUB_PAT:
 
 
 today = datetime.date.today()
-start_of_week = today - datetime.timedelta(days=(today.weekday() + 1) % 7)
+# sunday first
+# start_of_week = today - datetime.timedelta(days=(today.weekday() + 1) % 7)
+# monday first
+start_of_week = today - datetime.timedelta(days=(today.weekday()))
 from_date = start_of_week.isoformat() + "T00:00:00Z"
 to_date = today.isoformat() + "T23:59:59Z"
 
@@ -99,7 +103,10 @@ def get_color(count, theme):
         return scheme[4]
 
 def get_weekday_name(weekday):
-    return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][(weekday + 1) % 7]
+    # Sunday first
+    # return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][(weekday + 1)%7]
+    # monday first
+    return ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam","Dim"][weekday]
 
 
 for attempt in range(MAX_RETRIES):
