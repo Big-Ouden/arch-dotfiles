@@ -291,3 +291,5 @@ fi
 # To initialize zoxide, add this to your shell configuration file (usually ~/.zshrc):
 #
 # eval "$(zoxide init zsh)"
+
+. "$HOME/.config/local/share/../bin/env"

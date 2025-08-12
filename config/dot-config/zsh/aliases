@@ -22,8 +22,8 @@ alias ga="git add"
 alias gaa="git add --all"
 alias gav="git add --verbose"
 alias gb="git branch"
-alias gba="git brnanch -a"
-alias gbD="git brnach --delete"
+alias gba="git branch -a"
+alias gbD="git brach --delete"
 alias gbsup='git branch --set-upstream-to="origin/$(git_current_branch)"'
 alias gco='git checkout'
 alias gcl="git clone --recursive"
