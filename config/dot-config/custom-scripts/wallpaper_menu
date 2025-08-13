@@ -54,7 +54,7 @@ navigate_and_select() {
     local current_folder="$1"
     local selection
     while true; do
-        selection=$(list_files_and_dirs "$current_folder" | rofi -dmenu -config "$config" -theme-str 'window {width: 50%;} listview {columns: 1;}' -show-icons -p "Wallpaper "  )
+        selection=$(list_files_and_dirs "$current_folder" | rofi -dmenu -show-icons -config "$config"  -p "Wallpaper " )
 
         if [[ -z "$selection" ]]; then
             echo "Aucune sélection."
