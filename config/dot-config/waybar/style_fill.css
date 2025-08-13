@@ -47,11 +47,13 @@ menu,
 
 #workspaces button {
   /* padding: 0px 2px; */
+  background-color:@sky;
   margin: 3px;
   border-radius: 6px;
   border: none;
   transition: all 0.2s ease-in-out;
   opacity: 0.8;
+  color:@text;
 }
 
 #workspaces button.active, 
@@ -62,6 +64,7 @@ menu,
   color: @mauve;
   /* background: @mauve; */
   /* background: #cba6f7; */
+  background-color:@sky;
   min-width: 20px;
   opacity: 1;
 }
@@ -73,8 +76,9 @@ menu,
 }
 
 #workspaces button:hover {
-  color: @sky;
-  background: #1e1e2e;
+  background-color:@sky;
+  /* background: #1e1e2e; */
+  background:@sky;
   opacity: 1;
   animation: none;
 }

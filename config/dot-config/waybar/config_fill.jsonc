@@ -196,6 +196,8 @@
   },
   "clock": {
     "format": "{:%H:%M / %h %d}",
+    "timezone":"Canada/Eastern",
+    "locale":"fr_FR.UTF-8",
     "tooltip": true,
     "tooltip-format": "<tt>{calendar}</tt>"
   },
