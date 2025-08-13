@@ -6,7 +6,7 @@ show_help() {
 Usage: wallpaper_menu [DIRECTORY] [OPTIONS]
 Change le wallpaper en utilisant une image sélectionnée via rofi.
 Arguments:
-  DIRECTORY   Le répertoire contenant les images à choisir. Par défaut, utilise le répertoire courant ou $XDG_PICTURES_DIR.
+  DIRECTORY   Le répertoire contenant les images à choisir. Par défaut, utilise le répertoire courant ou \$XDG_PICTURES_DIR.
 Options:
   -h, --help  Affiche ce message d'aide et quitte.
 Description:
@@ -21,7 +21,43 @@ Exemples:
 EOF
 }
 
+# Configuration
 config=$HOME/.config/custom-scripts/wallpaper.rasi
+
+# Définir les variables d'environnement nécessaires
+export DOTFILES=${DOTFILES:-"$HOME/.config"}
+export PATH="$HOME/.local/bin:$PATH"
+
+# Fonction pour appeler change_wallpaper avec le bon environnement
+call_change_wallpaper() {
+    local args="$*"
+
+    # Essayer différents chemins possibles pour change_wallpaper
+    local script_paths=(
+        "$DOTFILES/custom-scripts/change_wallpaper"
+        "/usr/local/bin/change_wallpaper"
+        "$(which change_wallpaper 2>/dev/null)"
+    )
+
+    for script_path in "${script_paths[@]}"; do
+        if [[ -n "$script_path" && -x "$script_path" ]]; then
+            echo "Utilisation de: $script_path" >&2
+            "$script_path" $args
+            return $?
+        fi
+    done
+
+    # Si aucun script trouvé, essayer la commande directement
+    if command -v change_wallpaper >/dev/null 2>&1; then
+        change_wallpaper $args
+        return $?
+    fi
+
+    echo "Erreur: Script change_wallpaper introuvable" >&2
+    echo "Chemins testés:" >&2
+    printf "  %s\n" "${script_paths[@]}" >&2
+    return 1
+}
 
 # Vérifier si l'option d'aide est passée
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
@@ -43,18 +79,18 @@ list_files_and_dirs() {
     done
 
     # Lister les fichiers images
-    find . -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \)  ! -name ".*"| sed 's|./||' | while read -r file; do
+    find . -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" -o -iname "*.bmp" -o -iname "*.tiff" -o -iname "*.gif" \) ! -name ".*" | sed 's|./||' | while read -r file; do
         echo -en "$file\0icon\x1f$(realpath "$file")\n"
     done
-
 }
 
 # Fonction pour gérer la navigation et la sélection
 navigate_and_select() {
     local current_folder="$1"
     local selection
+
     while true; do
-        selection=$(list_files_and_dirs "$current_folder" | rofi -dmenu -show-icons -config "$config"  -p "Wallpaper " )
+        selection=$(list_files_and_dirs "$current_folder" | rofi -dmenu -show-icons -config "$config" -p "Wallpaper ")
 
         if [[ -z "$selection" ]]; then
             echo "Aucune sélection."
@@ -70,27 +106,50 @@ navigate_and_select() {
         fi
     done
 
-    echo "Image sélectionnée: $selection"
+    echo "Image sélectionnée: $selection" >&2
 
     # Utiliser rofi pour choisir l'action à effectuer
     action=$(printf "Desktop\nLogin\nBoth\nCancel" | rofi -dmenu -i -config "$config" -p "Set as:")
 
     case "$action" in
         Desktop)
-            echo "Setting as desktop wallpaper"
-            change_wallpaper "$current_folder/$selection"
+            echo "Setting as desktop wallpaper" >&2
+            if call_change_wallpaper "$current_folder/$selection"; then
+                notify-send "Wallpaper" "Desktop wallpaper changé avec succès" -i "$current_folder/$selection" 2>/dev/null -t 10|| true
+            else
+                notify-send "Erreur" "Impossible de changer le wallpaper desktop" -u critical 2>/dev/null -t 10 || true
+                echo "Erreur lors du changement du wallpaper desktop" >&2
+            fi
             ;;
         Login)
-            echo "Setting as login wallpaper"
-            change_wallpaper --login "$current_folder/$selection"
+            echo "Setting as login wallpaper" >&2
+            if call_change_wallpaper --login "$current_folder/$selection"; then
+                notify-send "Wallpaper" "Login wallpaper changé avec succès" -i "$current_folder/$selection" 2>/dev/null -t 10 || true
+            else
+                notify-send "Erreur" "Impossible de changer le wallpaper de login" -u critical 2>/dev/null -t 10|| true
+                echo "Erreur lors du changement du wallpaper de login" >&2
+            fi
             ;;
         Both)
-            echo "Setting as both desktop and login wallpaper"
-            change_wallpaper "$current_folder/$selection"
-            change_wallpaper --login "$current_folder/$selection"
+            echo "Setting as both desktop and login wallpaper" >&2
+            success=true
+            if ! call_change_wallpaper "$current_folder/$selection"; then
+                echo "Erreur lors du changement du wallpaper desktop" >&2
+                success=false
+            fi
+            if ! call_change_wallpaper --login "$current_folder/$selection"; then
+                echo "Erreur lors du changement du wallpaper de login" >&2
+                success=false
+            fi
+
+            if $success; then
+                notify-send "Wallpaper" "Wallpapers desktop et login changés avec succès" -i "$current_folder/$selection" 2>/dev/null || true
+            else
+                notify-send "Erreur" "Erreur lors du changement des wallpapers" -u critical 2>/dev/null || true
+            fi
             ;;
         *)
-            echo "Action cancelled"
+            echo "Action cancelled" >&2
             ;;
     esac
 }
@@ -108,4 +167,3 @@ fi
 
 # Démarrer la navigation et la sélection
 navigate_and_select "$current_folder"
-

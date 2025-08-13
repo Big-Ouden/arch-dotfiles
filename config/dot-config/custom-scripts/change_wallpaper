@@ -3,8 +3,8 @@
 #######################################
 # Configuration
 #######################################
-CONFIG_FILE="$DOTFILES/hypr/hyprpaper.conf"
-WALLPAPER_DIR="$DOTFILES/wallpapers"
+CONFIG_FILE="/home/bigouden/.config/hypr/hyprpaper.conf"
+WALLPAPER_DIR="/home/bigouden/.config/wallpapers"
 RANDOM_CONFIG_FILE="$WALLPAPER_DIR/.random_config"
 SUPPORTED_FORMATS=("jpg" "jpeg" "png" "webp" "bmp" "tiff" "gif")
 
@@ -15,6 +15,12 @@ DEFAULT_SPLASH="off"
 #######################################
 # Fonctions utilitaires
 #######################################
+
+reload_eww() {
+    $HOME/bin/eww close todo
+    sleep 1
+    $HOME/bin/eww open todo
+}
 
 # Vérifie si un fichier a une extension d'image supportée
 is_image_file() {
@@ -198,7 +204,11 @@ restart_hyprpaper() {
         runbg hyprpaper
     else
         hyprpaper &
+        sleep 1
+        reload_eww
+
     fi
+
 }
 
 # Fonction principale pour changer le wallpaper
@@ -430,6 +440,9 @@ parse_arguments() {
         return 1
     fi
 }
+
+
+
 
 #######################################
 # Main
