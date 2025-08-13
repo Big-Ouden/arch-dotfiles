@@ -11,4 +11,7 @@ return {
     "pappasam/papercolor-theme-slim",
     "chitalu/vim-papercolor-theme",
     "mohvn/peachpuff-legacy",
+    "lifepillar/vim-gruvbox8",
+    "ellisonleao/gruvbox.nvim",
+    "ricardoraposo/gruvbox-minor.nvim",
 }
