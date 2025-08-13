@@ -1,11 +1,11 @@
 #!/bin/bash
 
-ROUND_STYLE=style_round.css
-FILL_STYLE=style_fill.css
+ROUND_STYLE=style/style_round.css
+FILL_STYLE=style/style_fill.css
 STYLE=style.css
 
-ROUND_CONFIG=config_round.jsonc
-FILL_CONFIG=config_fill.jsonc
+ROUND_CONFIG=config_folder/config_round.jsonc
+FILL_CONFIG=config_folder/config_fill.jsonc
 CONFIG=config.jsonc
 
 EXISTING_STYLE=$(readlink "$STYLE")

@@ -221,7 +221,7 @@ window#waybar {
 
 /* Battery */
 #battery {
-  color: @blue;
+  color: @sky;
   min-width: 10px;
   padding-left: 2px;
   /* margin-left: 1px; */
