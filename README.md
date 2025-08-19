@@ -200,38 +200,6 @@ Change background via `metadata.desktop`:
 ConfigFile=Themes/theme-to-use.conf
 ```
 
-#### Hyprpaper (Wallpaper Manager)
-
-Installation:
-
-```bash
-sudo pacman -S hyprpaper
-```
-
-Configure `~/.config/hypr/hyprpaper.conf`:
-
-```ini
-preload = ~/wallpapers/image1.png
-wallpaper = eDP-1,~/wallpapers/image1.png
-splash = true
-```
-
-Launch on startup in `hyprland.conf`:
-
-```ini
-exec-once = hyprpaper
-```
-
-Disable Hyprland’s default wallpaper:
-
-```ini
-misc {
-  force_default_wallpaper = 1
-  disable_hyprland_logo = true
-}
-```
-
-Associated scripts: `change_wallpaper`, `wallpaper_menu` (rofi-based)
 
 #### Paru (AUR Helper)
 
@@ -261,29 +229,7 @@ bind = $mainMod, code:20, exec, scratchpad
 bind = $mainMod SHIFT, code:20, exec, scratchpad -g
 ```
 
-#### Hyprzoom
 
-Smooth screen zoom:
-
-```bash
-paru hypr-zoom
-```
-
-Keybindings:
-
-```ini
-bind = $mainMod, code:21, exec, hypr-zoom -easing=InOutExpo -duration=100 -steps=50 -target=2
-bind = $mainMod SHIFT, mouse:272, exec, hypr-zoom -easing=InOutExpo -duration=100 -steps=50 -target=2
-```
-
-#### Zsh / Bash / Starship / Kitty
-
-> Detailed documentation included in `.zshrc`, `.bashrc`, `starship.toml`, `kitty.conf`.
-
-* Bash → `oh-my-bash`, `ble.sh`, custom aliases in `.oh-my-bash/custom`
-* Zsh → `oh-my-zsh`, plugins (rbw, zsh-autosuggestions, syntax-highlighting), `catppuccin` theme
-* Starship → Multi-theme prompt (Gruvbox, Catppuccin)
-* Kitty → Ligatures, emojis, dynamic theme loading from `theme.conf`
 
 #### Vim (Secondary Configuration)
 
@@ -487,6 +433,98 @@ Specific tools designed for Hyprland:
 * **Hyprcursor**: cursor customization
 * **Hyprshade**: apply shader/filter overlay
 * **Hyprlock**: aesthetic lightweight screen locker
+
+
+##### Hyprpaper (Wallpaper Manager)
+
+Installation:
+
+```bash
+sudo pacman -S hyprpaper
+```
+
+Config `~/.config/hypr/hyprpaper.conf`:
+
+```ini
+preload = ~/wallpapers/image1.png
+wallpaper = eDP-1,~/wallpapers/image1.png
+splash = true
+```
+
+Launch on startup in `hyprland.conf`:
+
+```ini
+exec-once = hyprpaper
+```
+
+Disable Hyprland’s default wallpaper:
+
+```ini
+misc {
+  force_default_wallpaper = 1
+  disable_hyprland_logo = true
+}
+```
+
+Associated scripts: `change_wallpaper`, `wallpaper_menu` (rofi-based)
+
+##### Hyprzoom
+
+Smooth screen zoom:
+
+```bash
+paru hypr-zoom
+```
+
+Keybindings:
+
+```ini
+bind = $mainMod, code:21, exec, hypr-zoom -easing=InOutExpo -duration=100 -steps=50 -target=2
+bind = $mainMod SHIFT, mouse:272, exec, hypr-zoom -easing=InOutExpo -duration=100 -steps=50 -target=2
+```
+
+
+##### Hyprshade
+
+Installation:
+```bash
+paru -S hyprshade
+```
+
+Config file `~/.config/hyprshade/config.toml` :
+```toml
+[[shades]]
+name = "vibrance"
+default = true
+
+
+[[shades]]
+name = "blue-light-filter"
+start_time = 19:00:00
+end_time = 06:00:00
+```
+
+Each time config is edited, do not forget to install systemd service :
+
+```bash
+hyprshade install
+systemctl --user enable --now hyprshade.timer
+```
+
+
+
+##### Zsh / Bash / Starship / Kitty
+
+> Detailed documentation included in `.zshrc`, `.bashrc`, `starship.toml`, `kitty.conf`.
+
+* Bash → `oh-my-bash`, `ble.sh`, custom aliases in `.oh-my-bash/custom`
+* Zsh → `oh-my-zsh`, plugins (rbw, zsh-autosuggestions, syntax-highlighting), `catppuccin` theme
+* Starship → Multi-theme prompt (Gruvbox, Catppuccin)
+* Kitty → Ligatures, emojis, dynamic theme loading from `theme.conf`
+
+
+
+
 
 #### vpn\_toggle.sh with NetworkManager
 
