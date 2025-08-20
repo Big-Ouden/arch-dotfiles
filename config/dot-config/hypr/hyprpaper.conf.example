@@ -1,7 +1,0 @@
-# This file is generated automatically by change_wallpaper script.
-preload = /home/bigouden/.config/wallpapers/current_wallpaper.png
-wallpaper = ,/home/bigouden/.config/wallpapers/current_wallpaper.png
-# Enable splash text rendering over the wallpaper
-splash = off
-# IPC setting
-ipc = off
