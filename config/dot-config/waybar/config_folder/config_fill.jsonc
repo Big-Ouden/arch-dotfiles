@@ -5,7 +5,7 @@
   "margin-top": 0,
   "margin-bottom": 0,
   "modules-left": [
-    "custom/logo",
+    // "custom/logo",
     "hyprland/workspaces",
     // "cpu",
     "disk",
@@ -56,6 +56,9 @@
 
   "hyprland/window": {
     "format": "{initialClass}",
+    // "max-length": 5,
+    // "min-length": 5,
+    // "length" : 5,
     "icon": true,
     "icon-size": 19,
     "seperate-outputs": true,
