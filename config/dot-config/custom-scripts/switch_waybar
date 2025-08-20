@@ -1,0 +1,28 @@
+#!/bin/bash
+
+ROUND_STYLE=$DOTFILES/waybar/style/style_round.css
+FILL_STYLE=$DOTFILES/waybar/style/style_fill.css
+STYLE=$DOTFILES/waybar/style.css
+
+ROUND_CONFIG=$DOTFILES/waybar/config_folder/config_round.jsonc
+FILL_CONFIG=$DOTFILES/waybar/config_folder/config_fill.jsonc
+CONFIG=$DOTFILES/waybar/config.jsonc
+
+EXISTING_STYLE=$(readlink "$STYLE")
+
+killall waybar
+
+[[ ! -e $ROUND_STYLE || ! -e $FILL_STYLE || ! -e $ROUND_CONFIG || ! -e $FILL_CONFIG ]] && {
+    echo "Missing style or config files."
+    exit 1
+}
+
+if [[ "$EXISTING_STYLE" == "$ROUND_STYLE" ]]; then
+    ln -sf "$FILL_CONFIG" "$CONFIG"
+    ln -sf "$FILL_STYLE" "$STYLE"
+else
+    ln -sf "$ROUND_CONFIG" "$CONFIG"
+    ln -sf "$ROUND_STYLE" "$STYLE"
+fi
+
+nohup waybar > /dev/null 2>&1 &
