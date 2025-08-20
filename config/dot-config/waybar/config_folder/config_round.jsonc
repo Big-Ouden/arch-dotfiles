@@ -5,7 +5,7 @@
   "margin-top": 2,
   "margin-bottom": 0,
   "modules-left": [
-    "custom/logo",
+    // "custom/logo",
     "hyprland/workspaces",
     // "cpu",
     "disk",
