@@ -1,0 +1,9 @@
+.TH TOGGLE_WAYBAR 1 "Juillet 2025" "1.0" "Commandes utilisateur"
+.SH NOM
+switch_waybar \- Switch entre 2 config waybar.
+.SH SYNOPSIS
+switch_waybar
+.SH DESCRIPTION
+Kill le processus waybar et pointe (avec un lien symbolique dans le dossier waybar) vers l'autre config waybar. Puis relance waybar.
+.SH AUTEUR
+BigOuden

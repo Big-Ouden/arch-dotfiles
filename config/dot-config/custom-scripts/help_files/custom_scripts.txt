@@ -9,7 +9,7 @@ change_wallpaper
 .br
 custom_scripts
 .br
-init_rapport.sh
+init_rapport
 .br
 keybinds
 .br
@@ -30,6 +30,8 @@ toggle_float
 toggle_opacity
 .br
 toggle_waybar
+.br
+switch_waybar
 .br
 wallpaper_menu
 .br
@@ -95,6 +97,10 @@ Active ou désactive l’opacité configurée via Hyprctl (0.95/0.80 ou 1.0).
 .TP
 \fBtoggle_waybar\fP
 Lance ou arrête Waybar (barre système pour Wayland).
+
+.TP
+\fBswitch_waybar\fP
+Switch entre 2 config waybar.
 
 .TP
 \fBwallpaper_menu\fP
