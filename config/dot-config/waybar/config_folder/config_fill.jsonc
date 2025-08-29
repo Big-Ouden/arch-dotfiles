@@ -161,7 +161,7 @@
   },
   "memory": {
     "interval": 1,
-    "format": "{percentage}% <span font='Font Awesome 5 Free'>\uf538</span>",
+    "format": " <span font='Font Awesome 5 Free'>\uf538</span> {percentage}%",
     "on-click": "hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty btop'",
     "tooltip-format": "{used}/{total} GiB"
   },
