@@ -26,6 +26,7 @@
     "cava",
     "backlight",
     "network",
+    "hyprland/language",
     "battery"
   ],
   "custom/logo": {
@@ -218,6 +219,12 @@
     "tooltip-format-disconnected": "Disconnected",
     // "on-click": "exec $DOTFILES/rofi/wifi/wifi.sh",
     "on-click": "hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty nmtui'"
+  },
+  "hyprland/language": {
+    "format": "{}",
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+    "format-en": "us",
+    "format-fr": "fr",
   },
   "battery": {
     "states": {

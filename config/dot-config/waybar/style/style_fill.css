@@ -22,6 +22,7 @@ menu,
 #backlight,
 #bluetooth,
 #network,
+#language,
 #battery,
 #custom-vpn,
 #pulseaudio,
@@ -208,6 +209,12 @@ window#waybar {
   color: #cba6f7;
   border-radius: 6px;
   margin: 0 1px;
+}
+
+/* Keyboard layout */
+#language {
+  color: @pink;
+  border-radius: 6px;
 }
 
 /* Wifi */

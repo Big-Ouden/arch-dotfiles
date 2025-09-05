@@ -27,6 +27,7 @@
     "cava",
     "backlight",
     "network",
+    "hyprland/language",
     "battery"
   ],
   "custom/logo": {
@@ -199,7 +200,6 @@
   },
   "clock": {
     "format": "{:%H:%M / %h %d}",
-    "timezone":"Canada/Eastern",
     "locale":"fr_FR.UTF-8",
     "tooltip": true,
     "tooltip-format": "<tt>{calendar}</tt>"
@@ -220,6 +220,12 @@
     "tooltip-format-disconnected": "Disconnected",
     // "on-click": "exec $DOTFILES/rofi/wifi/wifi.sh",
     "on-click": "hyprctl dispatch exec '[float; center; size 950 650] kitty  --title float_kitty nmtui'"
+  },
+  "hyprland/language": {
+    "format": "{}",
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+    "format-en": "us",
+    "format-fr": "fr",
   },
   "battery": {
     "states": {

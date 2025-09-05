@@ -22,6 +22,7 @@ menu,
 #backlight,
 #bluetooth,
 #network,
+#language,
 #battery,
 #custom-power,
 #custom-vpn,
@@ -218,6 +219,12 @@ window#waybar {
   /* margin: 0 1px; */
 }
 
+/* Keyboard layout */
+#language {
+  color: @pink;
+  border-radius: 6px;
+}
+
 /* Wifi */
 #network {
   min-width: 30px;
@@ -229,7 +236,7 @@ window#waybar {
 
 /* Battery */
 #battery {
-  color: @sky;
+  color: @teal;
   min-width: 10px;
   padding-left: 5px;
   /* margin-left: 1px; */
